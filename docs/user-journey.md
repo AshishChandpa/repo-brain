@@ -286,18 +286,102 @@ mkdir -p .claude/commands
 cp /path/to/repo-brain/skills/*.md .claude/commands/
 ```
 
-Now at the start of any task, you type:
+This installs 6 skills as Claude Code slash commands:
+
+| Command | When to use |
+|---------|-------------|
+| `/setup` | **Start of every session** — init, index, map, ask task, run context |
+| `/impact-analysis` | Before touching any file |
+| `/safe-refactor` | Renaming or moving code |
+| `/bug-investigation` | Debugging a failure |
+| `/test-coverage` | Finding and filling test gaps |
+| `/feature-implementation` | Starting a new feature |
+
+---
+
+## Step 10 — The `/setup` experience
+
+From now on, every Claude Code session on this project starts with one command:
+
+```
+/setup
+```
+
+Claude does the following automatically — no prompts needed:
+
+```
+Checking repo-brain status...
+
+✓ .repo-brain/ found
+✓ Index is fresh (scanned 8 minutes ago)
+
+Repository overview:
+  Python files   41  |  Routes  18
+  Classes        28  |  Tests    9
+  Functions     284  |  Modules  app, tests
+
+What would you like to work on today?
+```
+
+You answer in plain English:
+
+```
+> Add rate limiting to the document upload endpoint
+```
+
+Claude immediately runs `repo_brain_task_context` and responds:
+
+```
+Start by reading:
+  app/routes/documents.py          ████ score 4
+  app/middleware/                  ██   score 2
+  app/services/document_service.py █    score 1
+
+Key symbols:
+  upload_document  app/routes/documents.py:28
+  DocumentService  app/services/document_service.py:12
+
+Routes involved:
+  POST /documents/upload → upload_document
+
+Tests to keep passing:
+  tests/test_documents_routes.py
+  tests/test_document_service.py
+
+Ready. Shall I open app/routes/documents.py?
+```
+
+You go from opening Claude Code to knowing exactly where to start — in under
+30 seconds, without reading a single file manually.
+
+If the index is stale (e.g. first session of the day after yesterday's work),
+`/setup` re-indexes automatically before showing the map:
+
+```
+Index is 14 hours old — re-indexing now...
+
+Indexed 43 Python files.  (+2 since last run)
+  Symbols : 318  Routes : 19  Tests : 9
+
+Repository overview: ...
+```
+
+---
+
+## Other skills in action
+
+Once `/setup` has oriented the session, reach for the right skill:
 
 ```
 /feature-implementation "add pagination to list endpoints"
 ```
 
-Claude follows the structured workflow automatically:
-1. Calls `repo_brain_status()` to understand the repo shape
+Claude follows the structured workflow:
+1. Calls `repo_brain_status()` to understand repo shape
 2. Calls `repo_brain_task_context(task=...)` to find relevant files
-3. Reads the suggested files to understand existing patterns
-4. Plans the change before writing any code
-5. Implements bottom-up: model → service → route → tests
+3. Reads existing patterns before writing anything
+4. Plans: model → service → route → tests
+5. Implements bottom-up, verifying at each layer
 
 Or before a risky change:
 
@@ -305,31 +389,38 @@ Or before a risky change:
 /impact-analysis app/services/document_service.py
 ```
 
-Claude runs the full impact workflow, reads all importers, reads all related
-tests, and gives you a written list of what to touch before starting.
+Claude runs the full impact workflow, reads all importers and tests,
+and gives you a written list of what to touch before starting.
 
 ---
 
 ## Daily workflow
 
-Once repo-brain is set up, the routine is:
+Once repo-brain and skills are set up, the full routine is:
 
 ```
-Morning / start of task
-  └── repo-brain index          (re-index if code changed since yesterday)
+Start of session
+  └── /setup                        ← always first; inits, re-indexes if stale,
+                                       shows map, asks task, runs context
 
 Before any change
-  └── repo-brain impact <file>  (or /impact-analysis in Claude Code)
+  └── /impact-analysis <file>       ← reads importers and tests before touching
 
 Starting a new feature
-  └── repo-brain context "<task>"  (or /feature-implementation)
+  └── /feature-implementation "<task>"
 
 Debugging
-  └── repo-brain context "<bug keywords>"  (or /bug-investigation)
+  └── /bug-investigation "<symptom>"
+
+Checking test coverage
+  └── /test-coverage <file>
+
+Renaming or moving code
+  └── /safe-refactor <file>
 
 Before committing
   └── python -m pytest
-  └── repo-brain index          (keep artifacts fresh for the next task)
+  └── repo-brain index              ← keep artifacts fresh for the next session
 ```
 
 ---
