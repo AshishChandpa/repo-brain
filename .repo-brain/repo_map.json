@@ -1,0 +1,17 @@
+{
+  "project_name": null,
+  "scan_timestamp": "2026-06-04T09:56:59.794248+00:00",
+  "python_file_count": 17,
+  "top_level_modules": [
+    "src",
+    "tests"
+  ],
+  "artifact_paths": {
+    "repo_map": ".repo-brain/repo_map.json",
+    "symbols": ".repo-brain/symbols.json",
+    "imports": ".repo-brain/imports.json",
+    "routes": ".repo-brain/routes.json",
+    "tests": ".repo-brain/tests.json",
+    "markdown": ".repo-brain/REPO_MAP.md"
+  }
+}

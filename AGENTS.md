@@ -29,6 +29,28 @@ repo-brain index
 repo-brain map
 ```
 
+## When to re-index
+
+Re-run `repo-brain index` after any of these changes:
+
+- Added, deleted, or renamed a Python file or directory
+- Added, changed, or removed a FastAPI route decorator
+- Added, renamed, or removed a class or function
+- Added or changed an import
+- Added or removed a test file or test function
+- Changed `config.json` (source roots, exclusions)
+
+You do NOT need to re-index after:
+
+- Changing logic inside a function body (no symbol/route change)
+- Changing comments or docstrings only
+
+One-liner to re-index and verify:
+
+```bash
+repo-brain index && repo-brain map
+```
+
 ## MVP Output
 
 The tool should generate:

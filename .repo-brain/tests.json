@@ -1,0 +1,59 @@
+[
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "test_functions": [
+      "test_app_get_route",
+      "test_app_post_route",
+      "test_app_put_route",
+      "test_app_delete_route",
+      "test_router_get",
+      "test_router_post",
+      "test_no_routes",
+      "test_dynamic_path_skipped",
+      "test_syntax_error_returns_empty"
+    ],
+    "test_classes": []
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "test_functions": [
+      "test_is_test_file_prefix",
+      "test_is_test_file_suffix",
+      "test_is_not_test_file",
+      "test_detects_test_functions",
+      "test_detects_test_class",
+      "test_detects_methods_in_test_class",
+      "test_ignores_helper_function",
+      "test_ignores_non_test_class",
+      "test_syntax_error_returns_empty"
+    ],
+    "test_classes": []
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "test_functions": [
+      "test_imports_absolute",
+      "test_imports_relative",
+      "test_symbols_class",
+      "test_symbols_methods",
+      "test_symbols_async_method",
+      "test_symbols_top_level_function",
+      "test_symbols_async_top_level",
+      "test_syntax_error_returns_empty"
+    ],
+    "test_classes": []
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "test_functions": [
+      "test_scan_finds_py_files",
+      "test_scan_marks_test_files",
+      "test_scan_detects_route",
+      "test_scan_detects_class",
+      "test_scan_detects_test_function",
+      "test_scan_excludes_dirs",
+      "test_top_level_modules"
+    ],
+    "test_classes": []
+  }
+]

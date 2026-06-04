@@ -1,0 +1,471 @@
+[
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "sys",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "datetime",
+    "name": "datetime",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "datetime",
+    "name": "timezone",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "typer",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "rich.console",
+    "name": "Console",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "rich.table",
+    "name": "Table",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.config",
+    "name": "brain_dir",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.config",
+    "name": "load_config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.config",
+    "name": "save_config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.models",
+    "name": "RepoMap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.scanner",
+    "name": "scan",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.scanner",
+    "name": "top_level_modules",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.writers.json_writer",
+    "name": "write_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.writers.markdown_writer",
+    "name": "write_markdown",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "module": "pydantic",
+    "name": "BaseModel",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "module": "typing",
+    "name": "Literal",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "module": "pydantic",
+    "name": "BaseModel",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/fastapi.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/fastapi.py",
+    "module": "ast",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/fastapi.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "module": "ast",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "ast",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "FileInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "ScanResult",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.fastapi",
+    "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.pytest",
+    "name": "is_test_file",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.pytest",
+    "name": "parse_tests",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.python_ast",
+    "name": "parse_imports",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.python_ast",
+    "name": "parse_symbols",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "module": "repo_brain.models",
+    "name": "RepoMap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "module": "repo_brain.models",
+    "name": "ScanResult",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/markdown_writer.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/markdown_writer.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/markdown_writer.py",
+    "module": "repo_brain.models",
+    "name": "RepoMap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/writers/markdown_writer.py",
+    "module": "repo_brain.models",
+    "name": "ScanResult",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "module": "repo_brain.parsers.fastapi",
+    "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "module": "repo_brain.parsers.pytest",
+    "name": "is_test_file",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "module": "repo_brain.parsers.pytest",
+    "name": "parse_tests",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "module": "repo_brain.parsers.python_ast",
+    "name": "parse_imports",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "module": "repo_brain.parsers.python_ast",
+    "name": "parse_symbols",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "textwrap",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "pytest",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "repo_brain.scanner",
+    "name": "scan",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "module": "repo_brain.scanner",
+    "name": "top_level_modules",
+    "alias": null,
+    "level": 0
+  }
+]

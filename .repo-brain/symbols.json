@@ -1,0 +1,514 @@
+[
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "init",
+    "symbol_type": "function",
+    "lineno": 26,
+    "end_lineno": 39,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "index",
+    "symbol_type": "function",
+    "lineno": 43,
+    "end_lineno": 83,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "repo_map",
+    "symbol_type": "function",
+    "lineno": 87,
+    "end_lineno": 136,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "name": "Config",
+    "symbol_type": "class",
+    "lineno": 12,
+    "end_lineno": 25,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "name": "brain_dir",
+    "symbol_type": "function",
+    "lineno": 28,
+    "end_lineno": 29,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "name": "config_path",
+    "symbol_type": "function",
+    "lineno": 32,
+    "end_lineno": 33,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "name": "load_config",
+    "symbol_type": "function",
+    "lineno": 36,
+    "end_lineno": 40,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/config.py",
+    "name": "save_config",
+    "symbol_type": "function",
+    "lineno": 43,
+    "end_lineno": 46,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "FileInfo",
+    "symbol_type": "class",
+    "lineno": 8,
+    "end_lineno": 12,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ImportInfo",
+    "symbol_type": "class",
+    "lineno": 15,
+    "end_lineno": 20,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "SymbolInfo",
+    "symbol_type": "class",
+    "lineno": 23,
+    "end_lineno": 29,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "RouteInfo",
+    "symbol_type": "class",
+    "lineno": 32,
+    "end_lineno": 37,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "TestInfo",
+    "symbol_type": "class",
+    "lineno": 40,
+    "end_lineno": 43,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "RepoMap",
+    "symbol_type": "class",
+    "lineno": 46,
+    "end_lineno": 51,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ScanResult",
+    "symbol_type": "class",
+    "lineno": 54,
+    "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/fastapi.py",
+    "name": "parse_routes",
+    "symbol_type": "function",
+    "lineno": 10,
+    "end_lineno": 26,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/fastapi.py",
+    "name": "_extract_route",
+    "symbol_type": "function",
+    "lineno": 29,
+    "end_lineno": 58,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "name": "is_test_file",
+    "symbol_type": "function",
+    "lineno": 11,
+    "end_lineno": 13,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/pytest.py",
+    "name": "parse_tests",
+    "symbol_type": "function",
+    "lineno": 16,
+    "end_lineno": 41,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "name": "parse_imports",
+    "symbol_type": "function",
+    "lineno": 11,
+    "end_lineno": 38,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "name": "parse_symbols",
+    "symbol_type": "function",
+    "lineno": 41,
+    "end_lineno": 83,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "name": "_is_top_level_function",
+    "symbol_type": "function",
+    "lineno": 86,
+    "end_lineno": 92,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "name": "scan",
+    "symbol_type": "function",
+    "lineno": 12,
+    "end_lineno": 50,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "name": "top_level_modules",
+    "symbol_type": "function",
+    "lineno": 53,
+    "end_lineno": 63,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "name": "_collect_files",
+    "symbol_type": "function",
+    "lineno": 66,
+    "end_lineno": 84,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "name": "_is_excluded",
+    "symbol_type": "function",
+    "lineno": 87,
+    "end_lineno": 95,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "name": "_to_module_path",
+    "symbol_type": "function",
+    "lineno": 98,
+    "end_lineno": 107,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "name": "write_artifacts",
+    "symbol_type": "function",
+    "lineno": 9,
+    "end_lineno": 20,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/writers/json_writer.py",
+    "name": "_write_json",
+    "symbol_type": "function",
+    "lineno": 23,
+    "end_lineno": 24,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/writers/markdown_writer.py",
+    "name": "write_markdown",
+    "symbol_type": "function",
+    "lineno": 8,
+    "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_app_get_route",
+    "symbol_type": "function",
+    "lineno": 60,
+    "end_lineno": 62,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_app_post_route",
+    "symbol_type": "function",
+    "lineno": 65,
+    "end_lineno": 67,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_app_put_route",
+    "symbol_type": "function",
+    "lineno": 70,
+    "end_lineno": 72,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_app_delete_route",
+    "symbol_type": "function",
+    "lineno": 75,
+    "end_lineno": 77,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_router_get",
+    "symbol_type": "function",
+    "lineno": 80,
+    "end_lineno": 82,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_router_post",
+    "symbol_type": "function",
+    "lineno": 85,
+    "end_lineno": 87,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_no_routes",
+    "symbol_type": "function",
+    "lineno": 90,
+    "end_lineno": 92,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_dynamic_path_skipped",
+    "symbol_type": "function",
+    "lineno": 95,
+    "end_lineno": 97,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_fastapi_routes.py",
+    "name": "test_syntax_error_returns_empty",
+    "symbol_type": "function",
+    "lineno": 100,
+    "end_lineno": 101,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_is_test_file_prefix",
+    "symbol_type": "function",
+    "lineno": 28,
+    "end_lineno": 29,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_is_test_file_suffix",
+    "symbol_type": "function",
+    "lineno": 32,
+    "end_lineno": 33,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_is_not_test_file",
+    "symbol_type": "function",
+    "lineno": 36,
+    "end_lineno": 38,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_detects_test_functions",
+    "symbol_type": "function",
+    "lineno": 41,
+    "end_lineno": 44,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_detects_test_class",
+    "symbol_type": "function",
+    "lineno": 47,
+    "end_lineno": 49,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_detects_methods_in_test_class",
+    "symbol_type": "function",
+    "lineno": 52,
+    "end_lineno": 54,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_ignores_helper_function",
+    "symbol_type": "function",
+    "lineno": 57,
+    "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_ignores_non_test_class",
+    "symbol_type": "function",
+    "lineno": 62,
+    "end_lineno": 64,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_pytest_detection.py",
+    "name": "test_syntax_error_returns_empty",
+    "symbol_type": "function",
+    "lineno": 67,
+    "end_lineno": 70,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_imports_absolute",
+    "symbol_type": "function",
+    "lineno": 25,
+    "end_lineno": 30,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_imports_relative",
+    "symbol_type": "function",
+    "lineno": 33,
+    "end_lineno": 37,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_symbols_class",
+    "symbol_type": "function",
+    "lineno": 40,
+    "end_lineno": 43,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_symbols_methods",
+    "symbol_type": "function",
+    "lineno": 46,
+    "end_lineno": 49,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_symbols_async_method",
+    "symbol_type": "function",
+    "lineno": 52,
+    "end_lineno": 55,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_symbols_top_level_function",
+    "symbol_type": "function",
+    "lineno": 58,
+    "end_lineno": 61,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_symbols_async_top_level",
+    "symbol_type": "function",
+    "lineno": 64,
+    "end_lineno": 67,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_python_ast.py",
+    "name": "test_syntax_error_returns_empty",
+    "symbol_type": "function",
+    "lineno": 70,
+    "end_lineno": 72,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "sample_repo",
+    "symbol_type": "function",
+    "lineno": 11,
+    "end_lineno": 32,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_finds_py_files",
+    "symbol_type": "function",
+    "lineno": 35,
+    "end_lineno": 41,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_marks_test_files",
+    "symbol_type": "function",
+    "lineno": 44,
+    "end_lineno": 49,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_detects_route",
+    "symbol_type": "function",
+    "lineno": 52,
+    "end_lineno": 55,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_detects_class",
+    "symbol_type": "function",
+    "lineno": 58,
+    "end_lineno": 61,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_detects_test_function",
+    "symbol_type": "function",
+    "lineno": 64,
+    "end_lineno": 67,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_scan_excludes_dirs",
+    "symbol_type": "function",
+    "lineno": 70,
+    "end_lineno": 75,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_scanner.py",
+    "name": "test_top_level_modules",
+    "symbol_type": "function",
+    "lineno": 78,
+    "end_lineno": 83,
+    "parent": null
+  }
+]

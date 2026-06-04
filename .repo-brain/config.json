@@ -1,0 +1,19 @@
+{
+  "project_name": null,
+  "source_roots": [
+    "."
+  ],
+  "exclude_dirs": [
+    ".git",
+    ".venv",
+    "venv",
+    "__pycache__",
+    ".mypy_cache",
+    ".pytest_cache",
+    "node_modules",
+    ".repo-brain"
+  ],
+  "include_extensions": [
+    ".py"
+  ]
+}
