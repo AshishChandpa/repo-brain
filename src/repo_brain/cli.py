@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import importlib.resources as pkg_resources
 import json
+import shutil
+import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -275,6 +278,145 @@ def context(
     out = bd / "last_context.json"
     out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
     console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+@app.command(name="setup-project")
+def setup_project(
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+    commands_dir: Path = typer.Option(
+        Path(".claude/commands"), "--commands-dir", help="Claude Code commands directory"
+    ),
+    skip_skills: bool = typer.Option(False, "--skip-skills", help="Skip installing skills"),
+    skip_mcp: bool = typer.Option(False, "--skip-mcp", help="Skip registering MCP server"),
+) -> None:
+    """One-command setup: init, index, install skills, register MCP.
+
+    Run this once per project to get a teammate fully set up:
+
+        repo-brain setup-project
+
+    Then type /setup in Claude Code to start any session.
+    """
+    console.print()
+    console.print(Panel(
+        "[bold]repo-brain[/bold] project setup",
+        subtitle=str(root.resolve()),
+        expand=False,
+    ))
+
+    # ── 1. init ─────────────────────────────────────────────────────────────
+    bd = brain_dir(root)
+    if bd.exists():
+        console.print("[dim]✓ .repo-brain/ already exists — skipping init[/dim]")
+    else:
+        bd.mkdir(parents=True)
+        config = Config()
+        save_config(config, root)
+        console.print("[green]✓ Initialised .repo-brain/[/green]")
+
+    # ── 2. index ─────────────────────────────────────────────────────────────
+    config = load_config(root)
+    with console.status("[bold green]Indexing repository…[/bold green]"):
+        result = scan(root, config)
+
+    modules = top_level_modules(result.files, root)
+    timestamp = datetime.now(timezone.utc).isoformat()
+    repo_map = RepoMap(
+        project_name=config.project_name,
+        scan_timestamp=timestamp,
+        python_file_count=len(result.files),
+        top_level_modules=modules,
+        artifact_paths={
+            "repo_map": str(bd / "repo_map.json"),
+            "symbols": str(bd / "symbols.json"),
+            "imports": str(bd / "imports.json"),
+            "routes": str(bd / "routes.json"),
+            "tests": str(bd / "tests.json"),
+            "markdown": str(bd / "REPO_MAP.md"),
+        },
+    )
+    write_artifacts(bd, result, repo_map)
+    write_markdown(bd, result, repo_map)
+    console.print(
+        f"[green]✓ Indexed {len(result.files)} Python files[/green]"
+        f"  [dim]({len(result.symbols)} symbols · {len(result.routes)} routes · {len(result.tests)} test files)[/dim]"
+    )
+
+    # ── 3. install skills ────────────────────────────────────────────────────
+    if skip_skills:
+        console.print("[dim]  Skills install skipped (--skip-skills)[/dim]")
+    else:
+        installed, skipped = _install_skills(root / commands_dir)
+        if installed:
+            console.print(f"[green]✓ Installed {len(installed)} skills → {commands_dir}[/green]")
+            for name in installed:
+                console.print(f"  [dim]  /{Path(name).stem}[/dim]")
+        if skipped:
+            console.print(f"[dim]  {len(skipped)} skill(s) already up to date[/dim]")
+
+    # ── 4. register MCP ──────────────────────────────────────────────────────
+    if skip_mcp:
+        console.print("[dim]  MCP registration skipped (--skip-mcp)[/dim]")
+    else:
+        _register_mcp(root)
+
+    # ── summary ──────────────────────────────────────────────────────────────
+    console.print()
+    console.print("[bold green]Setup complete.[/bold green]")
+    console.print("  Open Claude Code and type [bold]/setup[/bold] to start your first session.")
+
+
+def _install_skills(commands_dir: Path) -> tuple[list[str], list[str]]:
+    """Copy bundled skill files to .claude/commands/. Returns (installed, skipped)."""
+    commands_dir.mkdir(parents=True, exist_ok=True)
+    skills_pkg = pkg_resources.files("repo_brain") / "skills"
+
+    installed: list[str] = []
+    skipped: list[str] = []
+
+    for resource in skills_pkg.iterdir():
+        name = resource.name
+        if not name.endswith(".md") or name == "README.md":
+            continue
+        dest = commands_dir / name
+        content = resource.read_text(encoding="utf-8")
+        if dest.exists() and dest.read_text(encoding="utf-8") == content:
+            skipped.append(name)
+        else:
+            dest.write_text(content, encoding="utf-8")
+            installed.append(name)
+
+    return installed, skipped
+
+
+def _register_mcp(root: Path) -> None:
+    """Register repo-brain as an MCP server with the Claude Code CLI."""
+    claude = shutil.which("claude")
+    if not claude:
+        console.print(
+            "[yellow]  Claude Code CLI not found — skipping MCP registration.[/yellow]\n"
+            "  Run manually once claude is installed:\n"
+            f"  [dim]claude mcp add repo-brain -- repo-brain serve --root {root.resolve()}[/dim]"
+        )
+        return
+
+    cmd = [
+        claude, "mcp", "add", "repo-brain",
+        "--", "repo-brain", "serve", "--root", str(root.resolve()),
+    ]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode == 0:
+        console.print("[green]✓ MCP server registered with Claude Code[/green]")
+    else:
+        # 'already exists' is not a real failure
+        stderr = result.stderr.strip()
+        if "already" in stderr.lower() or "exists" in stderr.lower():
+            console.print("[dim]✓ MCP server already registered[/dim]")
+        else:
+            console.print(f"[yellow]  MCP registration failed: {stderr}[/yellow]")
+            console.print(
+                f"  Run manually: [dim]claude mcp add repo-brain -- repo-brain serve --root {root.resolve()}[/dim]"
+            )
 
 
 @app.command()

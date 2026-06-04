@@ -6,7 +6,24 @@ build-backend = "hatchling.build"
 name = "repo-brain"
 version = "0.1.0"
 description = "Local repository context engine for AI coding agents"
+readme = "README.md"
+license = { text = "MIT" }
 requires-python = ">=3.11"
+authors = [
+    { name = "Ashish Chandpa", email = "ashish.chandpa@visma.com" },
+]
+keywords = ["ai", "agents", "mcp", "fastapi", "repository", "context", "claude"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Utilities",
+]
 dependencies = [
     "typer>=0.12",
     "rich>=13",
@@ -14,11 +31,18 @@ dependencies = [
     "mcp>=1.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/AshishChandpa/repo-brain"
+Repository = "https://github.com/AshishChandpa/repo-brain"
+Issues = "https://github.com/AshishChandpa/repo-brain/issues"
+
 [project.scripts]
 repo-brain = "repo_brain.cli:app"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/repo_brain"]
+
+[tool.hatch.build.targets.wheel.shared-data]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
