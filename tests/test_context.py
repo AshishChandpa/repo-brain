@@ -6,6 +6,7 @@ from repo_brain.context import (
     _match_tests,
     _score_files,
     _score_symbols,
+    _tokenize_path,
     build_context,
 )
 from repo_brain.models import ImportInfo, RouteInfo, SymbolInfo, TestInfo
@@ -84,6 +85,45 @@ def test_keywords_all_stopwords():
 
 
 # ---------------------------------------------------------------------------
+# _tokenize_path — regression tests for edge cases that crashed on Python 3.12+
+# ---------------------------------------------------------------------------
+
+def test_tokenize_root_route():
+    # Path("/").with_suffix("") raised ValueError in Python 3.12+ (empty stem)
+    assert _tokenize_path("/") == []
+
+def test_tokenize_route_with_path_param():
+    tokens = _tokenize_path("/documents/{doc_id}")
+    assert "documents" in tokens
+    assert "doc" in tokens
+    assert "id" in tokens
+
+def test_tokenize_route_with_dotted_param():
+    # e.g. /items/{item.id} — dot inside curly braces
+    tokens = _tokenize_path("/items/{item.id}")
+    assert "items" in tokens
+
+def test_tokenize_file_path_strips_py():
+    tokens = _tokenize_path("app/services/document_service.py")
+    assert "py" not in tokens
+    assert "document" in tokens
+    assert "service" in tokens
+
+def test_tokenize_camelcase():
+    tokens = _tokenize_path("DocumentService")
+    assert "document" in tokens
+    assert "service" in tokens
+
+def test_tokenize_empty_string():
+    assert _tokenize_path("") == []
+
+def test_tokenize_plain_function_name():
+    tokens = _tokenize_path("upload_document")
+    assert "upload" in tokens
+    assert "document" in tokens
+
+
+# ---------------------------------------------------------------------------
 # _score_files
 # ---------------------------------------------------------------------------
 
@@ -137,7 +177,7 @@ def test_score_symbols_sorted_descending():
 
 
 # ---------------------------------------------------------------------------
-# _match_routes
+# _match_routes — including root route regression
 # ---------------------------------------------------------------------------
 
 def test_match_routes_by_path():
@@ -152,6 +192,18 @@ def test_match_routes_by_function():
 def test_match_routes_excludes_unrelated():
     matched = _match_routes(ROUTES, ["audit"])
     assert matched == []
+
+
+def test_match_routes_root_path_does_not_crash():
+    # Regression: Path("/").with_suffix("") raised ValueError in Python 3.12+
+    root_route = RouteInfo(file_path="app/main.py", method="get", path="/", function_name="health", lineno=1)
+    result = _match_routes([root_route], ["health"])
+    assert isinstance(result, list)
+
+def test_match_routes_path_param_does_not_crash():
+    param_route = RouteInfo(file_path="app/routes.py", method="get", path="/items/{item_id}", function_name="get_item", lineno=1)
+    result = _match_routes([param_route], ["items"])
+    assert any(r.path == "/items/{item_id}" for r in result)
 
 
 # ---------------------------------------------------------------------------

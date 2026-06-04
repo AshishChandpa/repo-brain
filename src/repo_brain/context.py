@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import re
-from pathlib import Path
 
 from repo_brain.models import (
     ContextResult,
@@ -111,12 +110,14 @@ def _extract_keywords(task: str) -> list[str]:
 # ---------------------------------------------------------------------------
 
 def _tokenize_path(path: str) -> list[str]:
-    """Split a file path into lowercase tokens for matching."""
-    # strip extension
-    stem = Path(path).with_suffix("").as_posix()
-    # split on / _ - and camelCase
-    stem = re.sub(r"([a-z])([A-Z])", r"\1 \2", stem)
-    return [t.lower() for t in re.split(r"[^a-zA-Z0-9]+", stem) if t]
+    """Split any string (file path, route path, symbol name) into lowercase tokens."""
+    # strip .py extension for file paths — plain string op avoids Path() edge cases
+    # (Path("/").with_suffix("") raises ValueError in Python 3.12+ due to empty stem)
+    text = path[:-3] if path.endswith(".py") else path
+    # split camelCase
+    text = re.sub(r"([a-z])([A-Z])", r"\1 \2", text)
+    # split on anything non-alphanumeric (handles / _ - . { } etc.)
+    return [t.lower() for t in re.split(r"[^a-zA-Z0-9]+", text) if t]
 
 
 def _score_token_list(tokens: list[str], keywords: list[str]) -> int:
