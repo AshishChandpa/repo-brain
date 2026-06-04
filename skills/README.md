@@ -10,11 +10,14 @@ Each skill is a structured Markdown document that tells an agent exactly what st
 
 | Skill | File | When to use |
 |-------|------|-------------|
+| **Setup** | `setup.md` | **Start of every session** — init, index, map, ask task |
 | Impact Analysis | `impact-analysis.md` | Before touching any file — check what else breaks |
 | Safe Refactor | `safe-refactor.md` | Renaming, moving, or restructuring existing code |
 | Bug Investigation | `bug-investigation.md` | Locating a bug's reach across routes, tests, files |
 | Test Coverage | `test-coverage.md` | Finding gaps and deciding what tests to write |
 | Feature Implementation | `feature-implementation.md` | Starting a new feature with the right context |
+
+> **Tip:** Always run `/setup` first. The other skills assume the index is fresh.
 
 ---
 

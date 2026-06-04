@@ -448,6 +448,7 @@ cp /path/to/repo-brain/skills/*.md .claude/commands/
 
 | Skill | File | Use when |
 |-------|------|----------|
+| **Setup** | `skills/setup.md` | **Start of every session** |
 | Impact Analysis | `skills/impact-analysis.md` | Before touching any file |
 | Safe Refactor | `skills/safe-refactor.md` | Renaming or moving code |
 | Bug Investigation | `skills/bug-investigation.md` | Debugging a failure |
