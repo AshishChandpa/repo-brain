@@ -67,3 +67,22 @@ class ImpactResult(BaseModel):
     imported_by: list[str]
     related_tests: list[str]
     likely_affected: list[str]
+
+
+class ScoredFile(BaseModel):
+    path: str
+    score: int
+
+
+class ScoredSymbol(BaseModel):
+    symbol: SymbolInfo
+    score: int
+
+
+class ContextResult(BaseModel):
+    task: str
+    keywords: list[str]
+    suggested_files: list[ScoredFile]
+    suggested_symbols: list[ScoredSymbol]
+    suggested_routes: list[RouteInfo]
+    suggested_tests: list[str]
