@@ -35,32 +35,44 @@ ContextGraph/
     .repo-brain/                     ← generated artifacts (index of itself)
 ```
 
-## Current implementation status
+## Current implementation status — all phases complete
 
-### Done (v1)
+| Phase | Feature | Status |
+|-------|---------|--------|
+| v1 | `init` / `index` / `map` + JSON/MD artifacts, 113 tests | Done |
+| v2 | `repo-brain impact <file>` — reverse import + test lookup | Done |
+| v3 | `repo-brain context "<task>"` — keyword-scored suggestions | Done |
+| v4 | `repo-brain serve` — MCP server, 6 tools for Claude Code / Cursor | Done |
+| v5 | `skills/` — 5 Markdown workflow skills as Claude Code slash commands | Done |
+
+## What each v1 command does
 
 - `repo-brain init` — creates `.repo-brain/config.json`
-- `repo-brain index` — scans repo, writes all 6 artifacts
-- `repo-brain map` — prints Rich terminal summary
-- Parsers: imports, symbols, FastAPI routes, pytest tests (all via `ast`)
-- 33 passing tests
-- README, AGENTS.md, CLAUDE.md
+- `repo-brain index` — scans repo, writes 8 artifacts (JSON + MD + last_impact + last_context)
+- `repo-brain map` — prints Rich terminal summary from artifacts
+- `repo-brain impact <file>` — reverse lookup: importers, tests, affected files
+- `repo-brain context "<task>"` — keyword scoring: ranked files, symbols, routes, tests
+- `repo-brain serve` — stdio MCP server exposing 6 tools to AI agents
 
-### Not started
+## Skills (install as Claude Code slash commands)
 
-| Phase | Command | Description |
-|-------|---------|-------------|
-| v2 | `repo-brain impact <file>` | Show affected routes, tests, imports for a file |
-| v3 | `repo-brain context "<task>"` | Suggest files/symbols relevant to a task description |
-| v4 | MCP server | Expose repo context as tools for Claude Code, Cursor, Copilot |
-| v5 | Skills | Workflow instructions: safe-refactor, bug-investigation, etc. |
+```bash
+cp repo-brain/skills/*.md .claude/commands/
+```
+
+| Skill | When to use |
+|-------|-------------|
+| `/impact-analysis` | Before touching any file |
+| `/safe-refactor` | Renaming or moving code |
+| `/bug-investigation` | Debugging a failure |
+| `/test-coverage` | Finding and filling test gaps |
+| `/feature-implementation` | Starting a new feature |
 
 ## Rules for this workspace
 
-- The PRD (`docs/repo_context_engine_prd.md`) is the source of truth — do not contradict it
-- Do not start Phase 2+ without completing and validating Phase 1 first
-- Do not build MCP, skills, vector DB, embeddings, or UI until the local indexer is reliable
+- The PRD (`docs/repo_context_engine_prd.md`) is the source of truth
 - All implementation happens inside `repo-brain/` — do not create new top-level packages
+- Do not add embeddings, vector DB, Neo4j, cloud sync, or UI
 
 ## When starting a new session
 
