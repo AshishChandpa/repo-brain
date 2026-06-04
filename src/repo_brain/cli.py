@@ -13,6 +13,7 @@ from rich.text import Text
 from repo_brain.config import Config, brain_dir, load_config, save_config
 from repo_brain.context import build_context, load_context_artifacts
 from repo_brain.impact import analyse, load_impact_artifacts
+from repo_brain.mcp_server import run_server
 from repo_brain.models import RepoMap
 from repo_brain.scanner import scan, top_level_modules
 from repo_brain.writers.json_writer import write_artifacts
@@ -274,6 +275,22 @@ def context(
     out = bd / "last_context.json"
     out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
     console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+@app.command()
+def serve(
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+) -> None:
+    """Start the MCP server on stdio (for Claude Code / Cursor / Copilot)."""
+    import asyncio
+
+    bd = brain_dir(root)
+    if not bd.exists():
+        console.print("[red]No .repo-brain/ found. Run `repo-brain init` and `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    console.print("[dim]repo-brain MCP server starting on stdio…[/dim]", err=True)
+    asyncio.run(run_server(root))
 
 
 def _section(title: str, count: int) -> None:
