@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "repo-brain"
+version = "0.1.0"
+description = "Local repository context engine for AI coding agents"
+requires-python = ">=3.11"
+dependencies = [
+    "typer>=0.12",
+    "rich>=13",
+    "pydantic>=2",
+]
+
+[project.scripts]
+repo-brain = "repo_brain.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/repo_brain"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
