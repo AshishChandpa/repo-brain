@@ -36,16 +36,10 @@ It produces these files under `.repo-brain/`:
 
 Requires Python 3.11+.
 
-### From PyPI (recommended)
+### From PyPI
 
 ```bash
 pip install repo-brain
-```
-
-### From GitHub
-
-```bash
-pip install git+https://github.com/AshishChandpa/repo-brain.git
 ```
 
 ### For development
@@ -465,7 +459,7 @@ All tests must pass before committing. Every parser module has a corresponding t
 
 ```bash
 # 1. Install
-pip install repo-brain                    # or: pip install git+https://github.com/AshishChandpa/repo-brain.git
+pip install repo-brain
 
 # 2. Set up their project
 cd their-python-project
@@ -496,14 +490,19 @@ repo-brain setup-project --commands-dir .claude/commands  # custom commands dire
 To release a new version:
 
 ```bash
-# bump version in pyproject.toml first, then:
-pip install hatch
+# 1. Bump version in pyproject.toml
+# 2. Build
+pip install hatch twine
 hatch build
-hatch publish
+
+# 3. Publish
+twine upload dist/* -u __token__ -p pypi-<your-api-token>
 ```
 
-You will be prompted for your PyPI username and API token on first publish.
-Create a token at [pypi.org/manage/account/token/](https://pypi.org/manage/account/token/).
+Get a PyPI API token at [pypi.org/manage/account/token/](https://pypi.org/manage/account/token/).
+The username is always the literal string `__token__`.
+
+Current release: **v0.1.0** → [pypi.org/project/repo-brain](https://pypi.org/project/repo-brain/)
 
 ---
 

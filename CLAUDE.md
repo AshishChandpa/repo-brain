@@ -20,6 +20,7 @@ deterministic — no LLMs, no cloud, no vector DB.
 These commands exist:
 
 ```
+repo-brain setup-project           # one-command setup: init + index + skills + MCP
 repo-brain init                    # create .repo-brain/ and config.json
 repo-brain index                   # scan repo, write all artifacts
 repo-brain map                     # print Rich summary from artifacts
@@ -28,8 +29,8 @@ repo-brain context "<task>"        # keyword scoring: what files/symbols are rel
 repo-brain serve                   # start MCP server on stdio (for Claude Code / Cursor)
 ```
 
-Skills live in `skills/` as Markdown files — install them as Claude Code slash
-commands via `.claude/commands/`. See `skills/README.md`.
+Skills live in `skills/` and `src/repo_brain/skills/` (bundled in the package).
+`setup-project` installs them automatically to `.claude/commands/`.
 
 Do NOT add: embeddings, vector search, Neo4j, UI, cloud sync,
 multi-language support, or autonomous agents.
@@ -45,7 +46,8 @@ multi-language support, or autonomous agents.
 | `src/repo_brain/impact.py` | Reverse lookup: who imports, related tests, affected files |
 | `src/repo_brain/context.py` | Keyword scoring: extract keywords, score/rank files, symbols, routes, tests |
 | `src/repo_brain/mcp_server.py` | MCP server: 6 tool handlers + Server wiring for stdio transport |
-| `skills/` | 5 Markdown workflow skills for AI agents |
+| `skills/` | 6 Markdown workflow skills (source of truth) |
+| `src/repo_brain/skills/` | Same skills bundled inside the pip package |
 | `src/repo_brain/parsers/python_ast.py` | Import + symbol extraction via `ast` |
 | `src/repo_brain/parsers/fastapi.py` | FastAPI route decorator detection |
 | `src/repo_brain/parsers/pytest.py` | Test file/function/class detection |
@@ -90,4 +92,14 @@ source .venv/bin/activate
 .venv\Scripts\activate
 ```
 
-The tool is installed as `repo-brain` via `pip install -e .`
+The tool is installed as `repo-brain` via `pip install -e .` (dev) or `pip install repo-brain` (PyPI).
+
+## Publishing a new version
+
+```bash
+# 1. Bump version in pyproject.toml
+# 2. Build
+hatch build
+# 3. Publish (username is always __token__)
+twine upload dist/* -u __token__ -p pypi-<token>
+```

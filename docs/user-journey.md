@@ -21,7 +21,7 @@ With repo-brain, it knows exactly where to look before touching anything.
 ## Step 1 — Install repo-brain
 
 ```bash
-pip install repo-brain
+pip install repo-brain          # published on PyPI
 ```
 
 Verify it works:

@@ -30,3 +30,6 @@ htmlcov/
 # repo-brain generated artifacts (when indexing itself)
 .repo-brain/last_impact.json
 .repo-brain/last_context.json
+
+# Claude Code commands installed by setup-project (auto-generated, not source)
+.claude/
