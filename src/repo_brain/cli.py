@@ -1,14 +1,17 @@
 from __future__ import annotations
 
-import sys
+import json
 from datetime import datetime, timezone
 from pathlib import Path
 
 import typer
 from rich.console import Console
+from rich.panel import Panel
 from rich.table import Table
+from rich.text import Text
 
 from repo_brain.config import Config, brain_dir, load_config, save_config
+from repo_brain.impact import analyse, load_impact_artifacts
 from repo_brain.models import RepoMap
 from repo_brain.scanner import scan, top_level_modules
 from repo_brain.writers.json_writer import write_artifacts
@@ -134,3 +137,73 @@ def repo_map(
     md_path = bd / "REPO_MAP.md"
     if md_path.exists():
         console.print(f"\n[dim]REPO_MAP.md → {md_path.resolve()}[/dim]")
+
+
+@app.command()
+def impact(
+    file: Path = typer.Argument(..., help="Target file to analyse (relative to repo root)"),
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+) -> None:
+    """Show what is affected if a file changes."""
+    bd = brain_dir(root)
+
+    if not (bd / "symbols.json").exists():
+        console.print("[red]No index found. Run `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    # normalise to a path string relative to root
+    try:
+        target = str(file.relative_to(root))
+    except ValueError:
+        target = str(file)
+
+    symbols, routes, imports, tests = load_impact_artifacts(bd)
+    result = analyse(target, symbols, routes, imports, tests)
+
+    # ── header ──────────────────────────────────────────────────────────────
+    console.print()
+    console.print(Panel(
+        f"[bold]{result.target_file}[/bold]\n[dim]module: {result.module_path or '—'}[/dim]",
+        title="[bold cyan]Impact Analysis[/bold cyan]",
+        expand=False,
+    ))
+
+    # ── symbols defined here ─────────────────────────────────────────────────
+    _section("Symbols defined in this file", len(result.symbols))
+    for s in result.symbols:
+        kind = f"[dim]{s.symbol_type}[/dim]"
+        parent = f"  [dim](in {s.parent})[/dim]" if s.parent else ""
+        console.print(f"  {kind}  [bold]{s.name}[/bold]{parent}  [dim]line {s.lineno}[/dim]")
+
+    # ── routes defined here ──────────────────────────────────────────────────
+    _section("FastAPI routes defined in this file", len(result.routes))
+    for r in result.routes:
+        console.print(f"  [green]{r.method.upper()}[/green]  {r.path}  [dim]→ {r.function_name}[/dim]")
+
+    # ── imported by ──────────────────────────────────────────────────────────
+    _section("Imported by", len(result.imported_by))
+    for f in result.imported_by:
+        console.print(f"  [yellow]{f}[/yellow]")
+
+    # ── related tests ────────────────────────────────────────────────────────
+    _section("Related tests", len(result.related_tests))
+    for f in result.related_tests:
+        console.print(f"  [magenta]{f}[/magenta]")
+
+    # ── likely affected ──────────────────────────────────────────────────────
+    _section("Likely affected files", len(result.likely_affected))
+    for f in result.likely_affected:
+        console.print(f"  • {f}")
+
+    if not result.likely_affected:
+        console.print("  [dim]No other files appear to depend on this file.[/dim]")
+
+    # ── write artifact ───────────────────────────────────────────────────────
+    out = bd / "last_impact.json"
+    out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
+    console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+def _section(title: str, count: int) -> None:
+    colour = "green" if count else "dim"
+    console.print(f"\n[bold {colour}]{title}[/bold {colour}] [{colour}]({count})[/{colour}]")
