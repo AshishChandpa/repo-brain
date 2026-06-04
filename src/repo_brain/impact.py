@@ -106,11 +106,27 @@ def _find_importers(
     module_variants: list[str],
     target: str,
 ) -> list[str]:
-    """Files that import any module variant of the target."""
+    """Files that import any module variant of the target.
+
+    Handles both:
+      import app.services.doc          → module="app.services.doc"
+      from app import document_service → module="app", name="document_service"
+                                         combined = "app.document_service"
+    """
+    variants = set(module_variants)
     found: set[str] = set()
     for imp in imports:
-        if imp.module in module_variants and not _paths_match(imp.file_path, target):
+        if _paths_match(imp.file_path, target):
+            continue
+        # direct module match
+        if imp.module in variants:
             found.add(imp.file_path)
+            continue
+        # from <pkg> import <submodule> — combine to check "pkg.submodule"
+        if imp.name:
+            combined = f"{imp.module}.{imp.name}" if imp.module else imp.name
+            if combined in variants:
+                found.add(imp.file_path)
     return sorted(found)
 
 
