@@ -56,6 +56,16 @@ repo-brain --help
 
 ---
 
+## User journey
+
+New to repo-brain? Read the end-to-end walkthrough first:
+**[docs/user-journey.md](docs/user-journey.md)**
+
+It covers a realistic scenario — adding audit logging to a FastAPI project —
+from first install through daily workflow, MCP setup, and slash commands.
+
+---
+
 ## Quick start
 
 ```bash
