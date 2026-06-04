@@ -3,40 +3,48 @@
     "file_path": "src/repo_brain/cli.py",
     "name": "init",
     "symbol_type": "function",
-    "lineno": 29,
-    "end_lineno": 42,
+    "lineno": 30,
+    "end_lineno": 43,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "index",
     "symbol_type": "function",
-    "lineno": 46,
-    "end_lineno": 86,
+    "lineno": 47,
+    "end_lineno": 87,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "repo_map",
     "symbol_type": "function",
-    "lineno": 90,
-    "end_lineno": 139,
+    "lineno": 91,
+    "end_lineno": 140,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "impact",
     "symbol_type": "function",
-    "lineno": 143,
-    "end_lineno": 204,
+    "lineno": 144,
+    "end_lineno": 205,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "context",
+    "symbol_type": "function",
+    "lineno": 209,
+    "end_lineno": 276,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "_section",
     "symbol_type": "function",
-    "lineno": 207,
-    "end_lineno": 209,
+    "lineno": 279,
+    "end_lineno": 281,
     "parent": null
   },
   {
@@ -77,6 +85,86 @@
     "symbol_type": "function",
     "lineno": 43,
     "end_lineno": 46,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "load_context_artifacts",
+    "symbol_type": "function",
+    "lineno": 30,
+    "end_lineno": 44,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "build_context",
+    "symbol_type": "function",
+    "lineno": 47,
+    "end_lineno": 87,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_extract_keywords",
+    "symbol_type": "function",
+    "lineno": 94,
+    "end_lineno": 106,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_tokenize_path",
+    "symbol_type": "function",
+    "lineno": 113,
+    "end_lineno": 119,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_score_token_list",
+    "symbol_type": "function",
+    "lineno": 122,
+    "end_lineno": 124,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_score_files",
+    "symbol_type": "function",
+    "lineno": 127,
+    "end_lineno": 134,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_score_symbols",
+    "symbol_type": "function",
+    "lineno": 137,
+    "end_lineno": 147,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_match_routes",
+    "symbol_type": "function",
+    "lineno": 150,
+    "end_lineno": 160,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_match_tests",
+    "symbol_type": "function",
+    "lineno": 163,
+    "end_lineno": 173,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "name": "_read",
+    "symbol_type": "function",
+    "lineno": 36,
+    "end_lineno": 38,
     "parent": null
   },
   {
@@ -208,6 +296,30 @@
     "parent": null
   },
   {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ScoredFile",
+    "symbol_type": "class",
+    "lineno": 72,
+    "end_lineno": 74,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ScoredSymbol",
+    "symbol_type": "class",
+    "lineno": 77,
+    "end_lineno": 79,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ContextResult",
+    "symbol_type": "class",
+    "lineno": 82,
+    "end_lineno": 88,
+    "parent": null
+  },
+  {
     "file_path": "src/repo_brain/parsers/fastapi.py",
     "name": "parse_routes",
     "symbol_type": "function",
@@ -325,6 +437,238 @@
     "symbol_type": "function",
     "lineno": 8,
     "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_lowercased",
+    "symbol_type": "function",
+    "lineno": 48,
+    "end_lineno": 50,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_removes_stopwords",
+    "symbol_type": "function",
+    "lineno": 52,
+    "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_splits_camelcase",
+    "symbol_type": "function",
+    "lineno": 61,
+    "end_lineno": 66,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_splits_underscores",
+    "symbol_type": "function",
+    "lineno": 68,
+    "end_lineno": 72,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_deduplicates",
+    "symbol_type": "function",
+    "lineno": 74,
+    "end_lineno": 76,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_empty_task",
+    "symbol_type": "function",
+    "lineno": 78,
+    "end_lineno": 79,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_keywords_all_stopwords",
+    "symbol_type": "function",
+    "lineno": 81,
+    "end_lineno": 83,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_files_matches_relevant",
+    "symbol_type": "function",
+    "lineno": 90,
+    "end_lineno": 98,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_files_excludes_unrelated",
+    "symbol_type": "function",
+    "lineno": 100,
+    "end_lineno": 103,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_files_sorted_by_score",
+    "symbol_type": "function",
+    "lineno": 105,
+    "end_lineno": 111,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_files_score_positive",
+    "symbol_type": "function",
+    "lineno": 113,
+    "end_lineno": 116,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_symbols_matches_name",
+    "symbol_type": "function",
+    "lineno": 123,
+    "end_lineno": 127,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_symbols_excludes_unrelated",
+    "symbol_type": "function",
+    "lineno": 129,
+    "end_lineno": 132,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_score_symbols_sorted_descending",
+    "symbol_type": "function",
+    "lineno": 134,
+    "end_lineno": 136,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_routes_by_path",
+    "symbol_type": "function",
+    "lineno": 143,
+    "end_lineno": 146,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_routes_by_function",
+    "symbol_type": "function",
+    "lineno": 148,
+    "end_lineno": 150,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_routes_excludes_unrelated",
+    "symbol_type": "function",
+    "lineno": 152,
+    "end_lineno": 154,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_tests_by_filename",
+    "symbol_type": "function",
+    "lineno": 161,
+    "end_lineno": 163,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_tests_by_function_name",
+    "symbol_type": "function",
+    "lineno": 165,
+    "end_lineno": 167,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_tests_excludes_unrelated",
+    "symbol_type": "function",
+    "lineno": 169,
+    "end_lineno": 171,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_match_tests_sorted",
+    "symbol_type": "function",
+    "lineno": 173,
+    "end_lineno": 175,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_returns_keywords",
+    "symbol_type": "function",
+    "lineno": 182,
+    "end_lineno": 185,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_suggests_relevant_files",
+    "symbol_type": "function",
+    "lineno": 187,
+    "end_lineno": 190,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_suggests_relevant_symbols",
+    "symbol_type": "function",
+    "lineno": 192,
+    "end_lineno": 195,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_suggests_routes",
+    "symbol_type": "function",
+    "lineno": 197,
+    "end_lineno": 199,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_suggests_tests",
+    "symbol_type": "function",
+    "lineno": 201,
+    "end_lineno": 203,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_empty_task",
+    "symbol_type": "function",
+    "lineno": 205,
+    "end_lineno": 209,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_caps_files_at_ten",
+    "symbol_type": "function",
+    "lineno": 211,
+    "end_lineno": 217,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "name": "test_build_context_caps_symbols_at_ten",
+    "symbol_type": "function",
+    "lineno": 219,
+    "end_lineno": 225,
     "parent": null
   },
   {

@@ -1,5 +1,40 @@
 [
   {
+    "file_path": "tests/test_context.py",
+    "test_functions": [
+      "test_keywords_lowercased",
+      "test_keywords_removes_stopwords",
+      "test_keywords_splits_camelcase",
+      "test_keywords_splits_underscores",
+      "test_keywords_deduplicates",
+      "test_keywords_empty_task",
+      "test_keywords_all_stopwords",
+      "test_score_files_matches_relevant",
+      "test_score_files_excludes_unrelated",
+      "test_score_files_sorted_by_score",
+      "test_score_files_score_positive",
+      "test_score_symbols_matches_name",
+      "test_score_symbols_excludes_unrelated",
+      "test_score_symbols_sorted_descending",
+      "test_match_routes_by_path",
+      "test_match_routes_by_function",
+      "test_match_routes_excludes_unrelated",
+      "test_match_tests_by_filename",
+      "test_match_tests_by_function_name",
+      "test_match_tests_excludes_unrelated",
+      "test_match_tests_sorted",
+      "test_build_context_returns_keywords",
+      "test_build_context_suggests_relevant_files",
+      "test_build_context_suggests_relevant_symbols",
+      "test_build_context_suggests_routes",
+      "test_build_context_suggests_tests",
+      "test_build_context_empty_task",
+      "test_build_context_caps_files_at_ten",
+      "test_build_context_caps_symbols_at_ten"
+    ],
+    "test_classes": []
+  },
+  {
     "file_path": "tests/test_fastapi_routes.py",
     "test_functions": [
       "test_app_get_route",

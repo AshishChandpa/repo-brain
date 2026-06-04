@@ -99,6 +99,20 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.context",
+    "name": "build_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.context",
+    "name": "load_context_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.impact",
     "name": "analyse",
     "alias": null,
@@ -178,6 +192,83 @@
     "file_path": "src/repo_brain/config.py",
     "module": "pydantic",
     "name": "BaseModel",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "re",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "ContextResult",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "ScoredFile",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "ScoredSymbol",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
     "alias": null,
     "level": 0
   },
@@ -472,6 +563,83 @@
     "file_path": "src/repo_brain/writers/markdown_writer.py",
     "module": "repo_brain.models",
     "name": "ScanResult",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "pytest",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "_extract_keywords",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "_match_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "_match_tests",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "_score_files",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "_score_symbols",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
+    "name": "build_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
     "alias": null,
     "level": 0
   },

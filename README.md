@@ -28,6 +28,7 @@ It produces these files under `.repo-brain/`:
 | `tests.json` | Test files, test functions, and test classes |
 | `REPO_MAP.md` | Human-readable summary of everything above |
 | `last_impact.json` | Result of the most recent `impact` run |
+| `last_context.json` | Result of the most recent `context` run |
 
 ---
 
@@ -58,15 +59,41 @@ repo-brain --help
 ## Quick start
 
 ```bash
-repo-brain init                              # creates .repo-brain/ and config.json
-repo-brain index                             # scans the repo and writes all artifacts
-repo-brain map                               # prints a Rich summary table in the terminal
-repo-brain impact src/services/users.py      # show what breaks if this file changes
+repo-brain init                                          # creates .repo-brain/ and config.json
+repo-brain index                                         # scans the repo and writes all artifacts
+repo-brain map                                           # prints a Rich summary table in the terminal
+repo-brain impact src/services/users.py                  # show what breaks if this file changes
+repo-brain context "add audit logging to document upload" # suggest files/symbols for a task
 ```
 
 ---
 
 ## Commands
+
+### `repo-brain context "<task>"`
+
+Answers: *"Which files, symbols, routes and tests are relevant to this task?"*
+
+Reads existing `.repo-brain/` artifacts (no re-scan). Extracts keywords from the task description, filters stopwords, splits camelCase/underscores, then scores every artifact by token match.
+
+```bash
+repo-brain context "add audit logging to document upload"
+repo-brain context "fix user authentication middleware"
+repo-brain context "add pagination to list endpoints"
+```
+
+Shows (ranked by relevance score):
+- **Keywords** extracted from the task
+- **Suggested files to read** — with a score bar showing match strength
+- **Suggested symbols** — class/function with `file:line` and score
+- **Suggested routes** — FastAPI routes whose path or handler matches
+- **Suggested tests** — test files to run after the change
+
+Also writes `.repo-brain/last_context.json` for agent consumption.
+
+**Requires `repo-brain index` to have been run first.**
+
+---
 
 ### `repo-brain impact <file>`
 
@@ -357,6 +384,6 @@ All tests must pass before committing. Every parser module has a corresponding t
 |-------|---------|--------|
 | v1 | `init` / `index` / `map`, JSON + Markdown artifacts | Done |
 | v2 | `repo-brain impact <file>` — show affected routes, tests, imports | Done |
-| v3 | `repo-brain context "<task>"` — suggest files and symbols for a task | Next |
-| v4 | MCP server exposing repo context as tools | Planned |
+| v3 | `repo-brain context "<task>"` — suggest files and symbols for a task | Done |
+| v4 | MCP server exposing repo context as tools | Next |
 | v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) | Planned |
