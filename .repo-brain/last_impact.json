@@ -1,58 +1,65 @@
 {
-  "target_file": "src/repo_brain/scanner.py",
-  "module_path": "src.repo_brain.scanner",
+  "target_file": "src/repo_brain/config.py",
+  "module_path": "src.repo_brain.config",
   "symbols": [
     {
-      "file_path": "src/repo_brain/scanner.py",
-      "name": "scan",
-      "symbol_type": "function",
+      "file_path": "src/repo_brain/config.py",
+      "name": "Config",
+      "symbol_type": "class",
       "lineno": 12,
-      "end_lineno": 50,
+      "end_lineno": 25,
       "parent": null
     },
     {
-      "file_path": "src/repo_brain/scanner.py",
-      "name": "top_level_modules",
+      "file_path": "src/repo_brain/config.py",
+      "name": "brain_dir",
       "symbol_type": "function",
-      "lineno": 53,
-      "end_lineno": 63,
+      "lineno": 28,
+      "end_lineno": 29,
       "parent": null
     },
     {
-      "file_path": "src/repo_brain/scanner.py",
-      "name": "_collect_files",
+      "file_path": "src/repo_brain/config.py",
+      "name": "config_path",
       "symbol_type": "function",
-      "lineno": 66,
-      "end_lineno": 84,
+      "lineno": 32,
+      "end_lineno": 33,
       "parent": null
     },
     {
-      "file_path": "src/repo_brain/scanner.py",
-      "name": "_is_excluded",
+      "file_path": "src/repo_brain/config.py",
+      "name": "load_config",
       "symbol_type": "function",
-      "lineno": 87,
-      "end_lineno": 95,
+      "lineno": 36,
+      "end_lineno": 40,
       "parent": null
     },
     {
-      "file_path": "src/repo_brain/scanner.py",
-      "name": "_to_module_path",
+      "file_path": "src/repo_brain/config.py",
+      "name": "save_config",
       "symbol_type": "function",
-      "lineno": 98,
-      "end_lineno": 107,
+      "lineno": 43,
+      "end_lineno": 46,
       "parent": null
     }
   ],
   "routes": [],
   "imported_by": [
     "src/repo_brain/cli.py",
+    "src/repo_brain/mcp_server.py",
+    "src/repo_brain/scanner.py",
+    "tests/test_mcp_server.py",
     "tests/test_scanner.py"
   ],
   "related_tests": [
+    "tests/test_mcp_server.py",
     "tests/test_scanner.py"
   ],
   "likely_affected": [
     "src/repo_brain/cli.py",
+    "src/repo_brain/mcp_server.py",
+    "src/repo_brain/scanner.py",
+    "tests/test_mcp_server.py",
     "tests/test_scanner.py"
   ]
 }

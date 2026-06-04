@@ -426,6 +426,28 @@ All tests must pass before committing. Every parser module has a corresponding t
 
 ---
 
+## Skills
+
+Workflow instruction files for AI coding agents, stored in `skills/`.
+Install them as Claude Code slash commands to use them directly in conversation.
+
+```bash
+mkdir -p .claude/commands
+cp /path/to/repo-brain/skills/*.md .claude/commands/
+```
+
+| Skill | File | Use when |
+|-------|------|----------|
+| Impact Analysis | `skills/impact-analysis.md` | Before touching any file |
+| Safe Refactor | `skills/safe-refactor.md` | Renaming or moving code |
+| Bug Investigation | `skills/bug-investigation.md` | Debugging a failure |
+| Test Coverage | `skills/test-coverage.md` | Finding and filling test gaps |
+| Feature Implementation | `skills/feature-implementation.md` | Starting a new feature |
+
+See `skills/README.md` for full installation and usage instructions.
+
+---
+
 ## Roadmap
 
 | Phase | Feature | Status |
@@ -434,4 +456,4 @@ All tests must pass before committing. Every parser module has a corresponding t
 | v2 | `repo-brain impact <file>` — show affected routes, tests, imports | Done |
 | v3 | `repo-brain context "<task>"` — suggest files and symbols for a task | Done |
 | v4 | `repo-brain serve` — MCP server exposing repo context as tools | Done |
-| v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) | Next |
+| v5 | Skills — workflow instructions for impact, refactor, bugs, tests, features | Done |

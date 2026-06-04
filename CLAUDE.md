@@ -15,7 +15,7 @@ A local CLI tool (`repo-brain`) that scans Python/FastAPI repositories and gener
 structured context artifacts for AI coding agents. It is intentionally simple and
 deterministic — no LLMs, no cloud, no vector DB.
 
-## Current scope (v1 + v2 — do not exceed)
+## Current scope (v1–v5 — complete)
 
 These commands exist:
 
@@ -28,8 +28,11 @@ repo-brain context "<task>"        # keyword scoring: what files/symbols are rel
 repo-brain serve                   # start MCP server on stdio (for Claude Code / Cursor)
 ```
 
-Do NOT add: skills, embeddings, vector search, Neo4j, UI, cloud sync,
-multi-language support, or autonomous agents — those are future phases.
+Skills live in `skills/` as Markdown files — install them as Claude Code slash
+commands via `.claude/commands/`. See `skills/README.md`.
+
+Do NOT add: embeddings, vector search, Neo4j, UI, cloud sync,
+multi-language support, or autonomous agents.
 
 ## Key files
 
@@ -42,6 +45,7 @@ multi-language support, or autonomous agents — those are future phases.
 | `src/repo_brain/impact.py` | Reverse lookup: who imports, related tests, affected files |
 | `src/repo_brain/context.py` | Keyword scoring: extract keywords, score/rank files, symbols, routes, tests |
 | `src/repo_brain/mcp_server.py` | MCP server: 6 tool handlers + Server wiring for stdio transport |
+| `skills/` | 5 Markdown workflow skills for AI agents |
 | `src/repo_brain/parsers/python_ast.py` | Import + symbol extraction via `ast` |
 | `src/repo_brain/parsers/fastapi.py` | FastAPI route decorator detection |
 | `src/repo_brain/parsers/pytest.py` | Test file/function/class detection |
@@ -56,6 +60,7 @@ repo-brain index && repo-brain map                           # smoke test the CL
 repo-brain impact src/repo_brain/scanner.py                  # smoke test impact
 repo-brain context "scan python files and extract symbols"   # smoke test context
 repo-brain serve --help                                      # verify serve command registered
+ls skills/                                                   # verify all 5 skills present
 ```
 
 ## Re-index rule
