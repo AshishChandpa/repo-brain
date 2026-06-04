@@ -57,3 +57,13 @@ class ScanResult(BaseModel):
     symbols: list[SymbolInfo]
     routes: list[RouteInfo]
     tests: list[TestInfo]
+
+
+class ImpactResult(BaseModel):
+    target_file: str
+    module_path: str | None
+    symbols: list[SymbolInfo]
+    routes: list[RouteInfo]
+    imported_by: list[str]
+    related_tests: list[str]
+    likely_affected: list[str]
