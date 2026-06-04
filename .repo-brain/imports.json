@@ -8,7 +8,28 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
+    "module": "importlib.resources",
+    "name": null,
+    "alias": "pkg_resources",
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
     "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "shutil",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "subprocess",
     "name": null,
     "alias": null,
     "level": 0

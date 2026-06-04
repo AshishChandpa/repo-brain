@@ -21,14 +21,7 @@ With repo-brain, it knows exactly where to look before touching anything.
 ## Step 1 — Install repo-brain
 
 ```bash
-cd /your/fastapi-project
-
-# create a virtualenv if you don't have one
-python3 -m venv .venv
-source .venv/bin/activate
-
-# install repo-brain
-pip install -e /path/to/repo-brain
+pip install repo-brain
 ```
 
 Verify it works:
@@ -43,66 +36,63 @@ Usage: repo-brain [OPTIONS] COMMAND [ARGS]...
   Local repository context engine for AI coding agents.
 
 Commands:
-  init     Initialise .repo-brain/ and create default config.json
-  index    Scan the repository and generate context artifacts
-  map      Print a readable repository summary from existing artifacts
-  impact   Show what is affected if a file changes
-  context  Suggest files, symbols, routes and tests relevant to a task
-  serve    Start the MCP server on stdio
+  setup-project  One-command setup: init, index, install skills, register MCP
+  init           Initialise .repo-brain/ and create default config.json
+  index          Scan the repository and generate context artifacts
+  map            Print a readable repository summary from existing artifacts
+  impact         Show what is affected if a file changes
+  context        Suggest files, symbols, routes and tests relevant to a task
+  serve          Start the MCP server on stdio
 ```
 
 ---
 
-## Step 2 — Initialise and index your project
+## Step 2 — Run setup-project
+
+One command does everything:
 
 ```bash
-repo-brain init
+cd /your/fastapi-project
+repo-brain setup-project
 ```
 
 ```
-Created /your/fastapi-project/.repo-brain
-Config written to .repo-brain/config.json
+╭──────────────────────────────────╮
+│ repo-brain project setup         │
+╰─ /your/fastapi-project ──────────╯
+✓ Initialised .repo-brain/
+✓ Indexed 41 Python files  (312 symbols · 18 routes · 9 test files)
+✓ Installed 6 skills → .claude/commands
+    /setup
+    /impact-analysis
+    /safe-refactor
+    /bug-investigation
+    /test-coverage
+    /feature-implementation
+✓ MCP server registered with Claude Code
+
+Setup complete.
+  Open Claude Code and type /setup to start your first session.
 ```
 
-```bash
-repo-brain index
-```
-
-```
-Indexed 41 Python files.
-  Symbols : 312
-  Imports : 287
-  Routes  : 18
-  Tests   : 9 test file(s)
-
-Artifacts written to /your/fastapi-project/.repo-brain
-```
-
-```bash
-repo-brain map
-```
-
-```
-              Repository Map
-  Project        my-fastapi-project
-  Python files   41
-  Classes        28
-  Functions      284
-  FastAPI routes 18
-  Test files     9
-  Scanned at     2026-06-04T10:30:00+00:00
-
-Top-level modules:
-  • app
-  • tests
-```
-
-In under 10 seconds you have a full picture of the codebase — before reading
-a single source file.
+In under 10 seconds: full repo index, all skills installed as slash commands,
+MCP server wired to Claude Code — before reading a single source file.
 
 ---
 
-## Step 3 — Understand the task context
+## Step 3 — Open Claude Code and run /setup
+
+```
+/setup
+```
+
+Claude checks the index, shows the repo map, and asks what you want to work on.
+Because `setup-project` already indexed the repo, the index is fresh and this
+takes under 5 seconds.
+
+---
+
+## Step 4 — Understand the task context
 
 The ticket says: *"Add audit logging every time a document is uploaded."*
 
@@ -147,7 +137,7 @@ You now know — without reading any code — that the change belongs in
 
 ---
 
-## Step 4 — Check impact before touching anything
+## Step 5 — Check impact before touching anything
 
 Before writing a single line, run impact on the file you are about to change:
 
@@ -192,7 +182,7 @@ You now know:
 
 ---
 
-## Step 5 — Implement the change
+## Step 6 — Implement the change
 
 You open `app/services/document_service.py` and add audit logging inside
 `upload_document`. The interface (function name, parameters, return type)
@@ -209,7 +199,7 @@ async def upload_document(file: UploadFile, user_id: int) -> Document:
 
 ---
 
-## Step 6 — Write the test
+## Step 7 — Write the test
 
 You open `tests/test_document_service.py` and add:
 
@@ -223,7 +213,7 @@ async def test_upload_document_writes_audit_log(mock_audit_log):
 
 ---
 
-## Step 7 — Verify nothing is broken
+## Step 8 — Verify nothing is broken
 
 ```bash
 python -m pytest tests/test_document_service.py tests/test_documents_routes.py -v
@@ -246,16 +236,10 @@ You are safe to commit.
 
 ---
 
-## Step 8 — Connect to Claude Code via MCP
+## Step 9 — MCP and skills (already done via setup-project)
 
-Do this once per project. It lets Claude Code call repo-brain tools directly
-in every future conversation — no manual commands needed.
-
-```bash
-claude mcp add repo-brain -- repo-brain serve --root /your/fastapi-project
-```
-
-Verify it registered:
+If you ran `repo-brain setup-project` in Step 2, MCP and skills are already
+configured. Verify with:
 
 ```bash
 claude mcp list

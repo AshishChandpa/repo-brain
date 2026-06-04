@@ -36,19 +36,29 @@ It produces these files under `.repo-brain/`:
 
 Requires Python 3.11+.
 
-```bash
-# Clone / navigate to repo-brain
-cd repo-brain
+### From PyPI (recommended)
 
-# Create a virtual environment
+```bash
+pip install repo-brain
+```
+
+### From GitHub
+
+```bash
+pip install git+https://github.com/AshishChandpa/repo-brain.git
+```
+
+### For development
+
+```bash
+git clone https://github.com/AshishChandpa/repo-brain.git
+cd repo-brain
 python3 -m venv .venv
 source .venv/bin/activate        # Windows: .venv\Scripts\activate
-
-# Install in editable mode
 pip install -e .
 ```
 
-To verify the install:
+Verify the install:
 
 ```bash
 repo-brain --help
@@ -67,6 +77,19 @@ from first install through daily workflow, MCP setup, and slash commands.
 ---
 
 ## Quick start
+
+### New project / first-time setup
+
+```bash
+pip install repo-brain
+cd your-python-project
+repo-brain setup-project
+```
+
+That's it. One command runs `init` + `index`, installs all skills as Claude Code
+slash commands, and registers the MCP server. Then open Claude Code and type `/setup`.
+
+### Manual setup (step by step)
 
 ```bash
 repo-brain init                                          # creates .repo-brain/ and config.json
@@ -433,6 +456,54 @@ All tests must pass before committing. Every parser module has a corresponding t
 - FastAPI route detection requires a literal string path argument; dynamic paths like `@router.get(PREFIX + "/users")` are skipped
 - No incremental indexing — every `index` run is a full scan
 - No MCP server, no embeddings, no vector search (planned for later phases)
+
+---
+
+## Sharing with teammates
+
+### Onboarding a teammate (3 steps)
+
+```bash
+# 1. Install
+pip install repo-brain                    # or: pip install git+https://github.com/AshishChandpa/repo-brain.git
+
+# 2. Set up their project
+cd their-python-project
+repo-brain setup-project
+
+# 3. Open Claude Code and type:
+/setup
+```
+
+`setup-project` automatically:
+- Creates `.repo-brain/` and `config.json`
+- Indexes the repository
+- Copies all 6 skills to `.claude/commands/` (so `/setup`, `/impact-analysis`, etc. work immediately)
+- Registers `repo-brain serve` as an MCP server with Claude Code
+
+### Options
+
+```bash
+repo-brain setup-project --skip-mcp         # skip MCP registration (e.g. not using Claude Code)
+repo-brain setup-project --skip-skills      # skip skill installation
+repo-brain setup-project --commands-dir .claude/commands  # custom commands directory
+```
+
+---
+
+## Publishing to PyPI
+
+To release a new version:
+
+```bash
+# bump version in pyproject.toml first, then:
+pip install hatch
+hatch build
+hatch publish
+```
+
+You will be prompted for your PyPI username and API token on first publish.
+Create a token at [pypi.org/manage/account/token/](https://pypi.org/manage/account/token/).
 
 ---
 

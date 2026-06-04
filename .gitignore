@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Hatch
+.hatch/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# repo-brain generated artifacts (when indexing itself)
+.repo-brain/last_impact.json
+.repo-brain/last_context.json

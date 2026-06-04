@@ -3,56 +3,80 @@
     "file_path": "src/repo_brain/cli.py",
     "name": "init",
     "symbol_type": "function",
-    "lineno": 31,
-    "end_lineno": 44,
+    "lineno": 34,
+    "end_lineno": 47,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "index",
     "symbol_type": "function",
-    "lineno": 48,
-    "end_lineno": 88,
+    "lineno": 51,
+    "end_lineno": 91,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "repo_map",
     "symbol_type": "function",
-    "lineno": 92,
-    "end_lineno": 141,
+    "lineno": 95,
+    "end_lineno": 144,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "impact",
     "symbol_type": "function",
-    "lineno": 145,
-    "end_lineno": 206,
+    "lineno": 148,
+    "end_lineno": 209,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "context",
     "symbol_type": "function",
-    "lineno": 210,
-    "end_lineno": 277,
+    "lineno": 213,
+    "end_lineno": 280,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "setup_project",
+    "symbol_type": "function",
+    "lineno": 284,
+    "end_lineno": 366,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "_install_skills",
+    "symbol_type": "function",
+    "lineno": 369,
+    "end_lineno": 389,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "_register_mcp",
+    "symbol_type": "function",
+    "lineno": 392,
+    "end_lineno": 419,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "serve",
     "symbol_type": "function",
-    "lineno": 281,
-    "end_lineno": 293,
+    "lineno": 423,
+    "end_lineno": 435,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "_section",
     "symbol_type": "function",
-    "lineno": 296,
-    "end_lineno": 298,
+    "lineno": 438,
+    "end_lineno": 440,
     "parent": null
   },
   {
