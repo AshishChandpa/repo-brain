@@ -3,24 +3,40 @@
     "file_path": "src/repo_brain/cli.py",
     "name": "init",
     "symbol_type": "function",
-    "lineno": 26,
-    "end_lineno": 39,
+    "lineno": 29,
+    "end_lineno": 42,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "index",
     "symbol_type": "function",
-    "lineno": 43,
-    "end_lineno": 83,
+    "lineno": 46,
+    "end_lineno": 86,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "repo_map",
     "symbol_type": "function",
-    "lineno": 87,
-    "end_lineno": 136,
+    "lineno": 90,
+    "end_lineno": 139,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "impact",
+    "symbol_type": "function",
+    "lineno": 143,
+    "end_lineno": 204,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "_section",
+    "symbol_type": "function",
+    "lineno": 207,
+    "end_lineno": 209,
     "parent": null
   },
   {
@@ -61,6 +77,70 @@
     "symbol_type": "function",
     "lineno": 43,
     "end_lineno": 46,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "load_impact_artifacts",
+    "symbol_type": "function",
+    "lineno": 9,
+    "end_lineno": 23,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "analyse",
+    "symbol_type": "function",
+    "lineno": 26,
+    "end_lineno": 65,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_paths_match",
+    "symbol_type": "function",
+    "lineno": 72,
+    "end_lineno": 73,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_to_module_path",
+    "symbol_type": "function",
+    "lineno": 76,
+    "end_lineno": 83,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_module_variants",
+    "symbol_type": "function",
+    "lineno": 86,
+    "end_lineno": 101,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_find_importers",
+    "symbol_type": "function",
+    "lineno": 104,
+    "end_lineno": 114,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_name_heuristic_tests",
+    "symbol_type": "function",
+    "lineno": 117,
+    "end_lineno": 124,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "name": "_read",
+    "symbol_type": "function",
+    "lineno": 15,
+    "end_lineno": 17,
     "parent": null
   },
   {
@@ -117,6 +197,14 @@
     "symbol_type": "class",
     "lineno": 54,
     "end_lineno": 59,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/models.py",
+    "name": "ImpactResult",
+    "symbol_type": "class",
+    "lineno": 62,
+    "end_lineno": 69,
     "parent": null
   },
   {
@@ -309,6 +397,166 @@
     "symbol_type": "function",
     "lineno": 100,
     "end_lineno": 101,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_path_simple",
+    "symbol_type": "function",
+    "lineno": 38,
+    "end_lineno": 39,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_path_init",
+    "symbol_type": "function",
+    "lineno": 41,
+    "end_lineno": 42,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_path_root",
+    "symbol_type": "function",
+    "lineno": 44,
+    "end_lineno": 45,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_path_non_py",
+    "symbol_type": "function",
+    "lineno": 47,
+    "end_lineno": 48,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_variants",
+    "symbol_type": "function",
+    "lineno": 55,
+    "end_lineno": 60,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_variants_init",
+    "symbol_type": "function",
+    "lineno": 62,
+    "end_lineno": 66,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_symbols_in_target",
+    "symbol_type": "function",
+    "lineno": 73,
+    "end_lineno": 78,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_routes_in_target",
+    "symbol_type": "function",
+    "lineno": 80,
+    "end_lineno": 84,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_imported_by_finds_importers",
+    "symbol_type": "function",
+    "lineno": 91,
+    "end_lineno": 94,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_imported_by_excludes_target_itself",
+    "symbol_type": "function",
+    "lineno": 96,
+    "end_lineno": 98,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_imported_by_excludes_unrelated",
+    "symbol_type": "function",
+    "lineno": 100,
+    "end_lineno": 102,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_related_tests_by_import",
+    "symbol_type": "function",
+    "lineno": 109,
+    "end_lineno": 111,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_related_tests_by_name_heuristic",
+    "symbol_type": "function",
+    "lineno": 113,
+    "end_lineno": 117,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_unrelated_tests_excluded",
+    "symbol_type": "function",
+    "lineno": 119,
+    "end_lineno": 121,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_likely_affected_union",
+    "symbol_type": "function",
+    "lineno": 128,
+    "end_lineno": 132,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_likely_affected_excludes_target",
+    "symbol_type": "function",
+    "lineno": 134,
+    "end_lineno": 136,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_likely_affected_is_sorted",
+    "symbol_type": "function",
+    "lineno": 138,
+    "end_lineno": 140,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_no_importers",
+    "symbol_type": "function",
+    "lineno": 147,
+    "end_lineno": 149,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_no_symbols_in_file",
+    "symbol_type": "function",
+    "lineno": 151,
+    "end_lineno": 153,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_impact.py",
+    "name": "test_module_path_in_result",
+    "symbol_type": "function",
+    "lineno": 155,
+    "end_lineno": 157,
     "parent": null
   },
   {

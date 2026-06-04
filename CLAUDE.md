@@ -15,14 +15,15 @@ A local CLI tool (`repo-brain`) that scans Python/FastAPI repositories and gener
 structured context artifacts for AI coding agents. It is intentionally simple and
 deterministic — no LLMs, no cloud, no vector DB.
 
-## Current scope (v1 — do not exceed)
+## Current scope (v1 + v2 — do not exceed)
 
-Only these commands exist and should be extended:
+These commands exist:
 
 ```
-repo-brain init
-repo-brain index
-repo-brain map
+repo-brain init         # create .repo-brain/ and config.json
+repo-brain index        # scan repo, write all artifacts
+repo-brain map          # print Rich summary from artifacts
+repo-brain impact <file>  # reverse lookup: what does changing this file affect?
 ```
 
 Do NOT add: MCP server, skills, embeddings, vector search, Neo4j, UI, cloud sync,
@@ -36,6 +37,7 @@ multi-language support, or autonomous agents — those are future phases.
 | `src/repo_brain/models.py` | Pydantic schemas for all artifacts |
 | `src/repo_brain/config.py` | Config load/save for `.repo-brain/config.json` |
 | `src/repo_brain/scanner.py` | Filesystem walk + parser orchestration |
+| `src/repo_brain/impact.py` | Reverse lookup: who imports, related tests, affected files |
 | `src/repo_brain/parsers/python_ast.py` | Import + symbol extraction via `ast` |
 | `src/repo_brain/parsers/fastapi.py` | FastAPI route decorator detection |
 | `src/repo_brain/parsers/pytest.py` | Test file/function/class detection |
@@ -45,8 +47,9 @@ multi-language support, or autonomous agents — those are future phases.
 ## Before finishing any task
 
 ```bash
-python -m pytest                  # all 33 tests must pass
-repo-brain index && repo-brain map  # smoke test the CLI end-to-end
+python -m pytest                              # all 53 tests must pass
+repo-brain index && repo-brain map            # smoke test the CLI end-to-end
+repo-brain impact src/repo_brain/scanner.py  # smoke test impact command
 ```
 
 ## Re-index rule

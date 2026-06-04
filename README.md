@@ -16,7 +16,7 @@ generate structured context
 AI agents read fewer irrelevant files
 ```
 
-It produces six files under `.repo-brain/`:
+It produces these files under `.repo-brain/`:
 
 | File | What it contains |
 |------|-----------------|
@@ -27,6 +27,7 @@ It produces six files under `.repo-brain/`:
 | `routes.json` | FastAPI route decorators (`@app.get`, `@router.post`, …) |
 | `tests.json` | Test files, test functions, and test classes |
 | `REPO_MAP.md` | Human-readable summary of everything above |
+| `last_impact.json` | Result of the most recent `impact` run |
 
 ---
 
@@ -56,17 +57,40 @@ repo-brain --help
 
 ## Quick start
 
-Run these three commands inside any Python repository you want to index:
-
 ```bash
-repo-brain init     # creates .repo-brain/ and config.json
-repo-brain index    # scans the repo and writes all artifacts
-repo-brain map      # prints a Rich summary table in the terminal
+repo-brain init                              # creates .repo-brain/ and config.json
+repo-brain index                             # scans the repo and writes all artifacts
+repo-brain map                               # prints a Rich summary table in the terminal
+repo-brain impact src/services/users.py      # show what breaks if this file changes
 ```
 
 ---
 
 ## Commands
+
+### `repo-brain impact <file>`
+
+Answers: *"If I change this file, what else is affected?"*
+
+Reads existing `.repo-brain/` artifacts (no re-scan needed) and performs reverse lookups.
+
+```bash
+repo-brain impact src/services/users.py
+repo-brain impact src/services/users.py --root /path/to/repo
+```
+
+Shows:
+- **Symbols defined in the file** — classes, functions, methods (with line numbers)
+- **FastAPI routes defined in the file** — method, path, handler
+- **Imported by** — other files that import this module
+- **Related tests** — test files that import this module or match `test_<stem>.py`
+- **Likely affected files** — sorted union of all the above
+
+Also writes `.repo-brain/last_impact.json` for agent consumption.
+
+**Requires `repo-brain index` to have been run first.**
+
+---
 
 ### `repo-brain init`
 
@@ -329,10 +353,10 @@ All tests must pass before committing. Every parser module has a corresponding t
 
 ## Roadmap
 
-| Phase | Feature |
-|-------|---------|
-| v1 (done) | `init` / `index` / `map`, JSON + Markdown artifacts |
-| v2 | `repo-brain impact <file>` — show affected routes, tests, imports |
-| v3 | `repo-brain context "<task>"` — suggest files and symbols for a task |
-| v4 | MCP server exposing repo context as tools |
-| v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) |
+| Phase | Feature | Status |
+|-------|---------|--------|
+| v1 | `init` / `index` / `map`, JSON + Markdown artifacts | Done |
+| v2 | `repo-brain impact <file>` — show affected routes, tests, imports | Done |
+| v3 | `repo-brain context "<task>"` — suggest files and symbols for a task | Next |
+| v4 | MCP server exposing repo context as tools | Planned |
+| v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) | Planned |

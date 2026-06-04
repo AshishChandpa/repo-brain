@@ -1,7 +1,7 @@
 {
   "project_name": null,
-  "scan_timestamp": "2026-06-04T09:56:59.794248+00:00",
-  "python_file_count": 17,
+  "scan_timestamp": "2026-06-04T10:33:38.123547+00:00",
+  "python_file_count": 19,
   "top_level_modules": [
     "src",
     "tests"

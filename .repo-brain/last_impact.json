@@ -1,0 +1,58 @@
+{
+  "target_file": "src/repo_brain/scanner.py",
+  "module_path": "src.repo_brain.scanner",
+  "symbols": [
+    {
+      "file_path": "src/repo_brain/scanner.py",
+      "name": "scan",
+      "symbol_type": "function",
+      "lineno": 12,
+      "end_lineno": 50,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/scanner.py",
+      "name": "top_level_modules",
+      "symbol_type": "function",
+      "lineno": 53,
+      "end_lineno": 63,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/scanner.py",
+      "name": "_collect_files",
+      "symbol_type": "function",
+      "lineno": 66,
+      "end_lineno": 84,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/scanner.py",
+      "name": "_is_excluded",
+      "symbol_type": "function",
+      "lineno": 87,
+      "end_lineno": 95,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/scanner.py",
+      "name": "_to_module_path",
+      "symbol_type": "function",
+      "lineno": 98,
+      "end_lineno": 107,
+      "parent": null
+    }
+  ],
+  "routes": [],
+  "imported_by": [
+    "src/repo_brain/cli.py",
+    "tests/test_scanner.py"
+  ],
+  "related_tests": [
+    "tests/test_scanner.py"
+  ],
+  "likely_affected": [
+    "src/repo_brain/cli.py",
+    "tests/test_scanner.py"
+  ]
+}

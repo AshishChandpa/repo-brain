@@ -15,6 +15,32 @@
     "test_classes": []
   },
   {
+    "file_path": "tests/test_impact.py",
+    "test_functions": [
+      "test_module_path_simple",
+      "test_module_path_init",
+      "test_module_path_root",
+      "test_module_path_non_py",
+      "test_module_variants",
+      "test_module_variants_init",
+      "test_symbols_in_target",
+      "test_routes_in_target",
+      "test_imported_by_finds_importers",
+      "test_imported_by_excludes_target_itself",
+      "test_imported_by_excludes_unrelated",
+      "test_related_tests_by_import",
+      "test_related_tests_by_name_heuristic",
+      "test_unrelated_tests_excluded",
+      "test_likely_affected_union",
+      "test_likely_affected_excludes_target",
+      "test_likely_affected_is_sorted",
+      "test_no_importers",
+      "test_no_symbols_in_file",
+      "test_module_path_in_result"
+    ],
+    "test_classes": []
+  },
+  {
     "file_path": "tests/test_pytest_detection.py",
     "test_functions": [
       "test_is_test_file_prefix",
