@@ -11,6 +11,7 @@ from rich.table import Table
 from rich.text import Text
 
 from repo_brain.config import Config, brain_dir, load_config, save_config
+from repo_brain.context import build_context, load_context_artifacts
 from repo_brain.impact import analyse, load_impact_artifacts
 from repo_brain.models import RepoMap
 from repo_brain.scanner import scan, top_level_modules
@@ -200,6 +201,77 @@ def impact(
 
     # ── write artifact ───────────────────────────────────────────────────────
     out = bd / "last_impact.json"
+    out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
+    console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+@app.command()
+def context(
+    task: str = typer.Argument(..., help="Natural-language task description"),
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+) -> None:
+    """Suggest files, symbols, routes and tests relevant to a task."""
+    bd = brain_dir(root)
+
+    if not (bd / "symbols.json").exists():
+        console.print("[red]No index found. Run `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    symbols, routes, imports, tests = load_context_artifacts(bd)
+    result = build_context(task, symbols, routes, imports, tests)
+
+    console.print()
+    console.print(Panel(
+        f'[bold]"{result.task}"[/bold]\n[dim]keywords: {", ".join(result.keywords) or "none matched"}[/dim]',
+        title="[bold cyan]Task Context[/bold cyan]",
+        expand=False,
+    ))
+
+    if not result.keywords:
+        console.print("[yellow]No meaningful keywords found. Try a more specific task description.[/yellow]")
+        raise typer.Exit(0)
+
+    # ── suggested files ──────────────────────────────────────────────────────
+    _section("Suggested files to read", len(result.suggested_files))
+    for sf in result.suggested_files:
+        bar = "█" * sf.score
+        console.print(f"  [yellow]{sf.path}[/yellow]  [dim]{bar} ({sf.score})[/dim]")
+
+    # ── suggested symbols ────────────────────────────────────────────────────
+    _section("Suggested symbols", len(result.suggested_symbols))
+    for ss in result.suggested_symbols:
+        s = ss.symbol
+        kind = f"[dim]{s.symbol_type}[/dim]"
+        parent = f"  [dim](in {s.parent})[/dim]" if s.parent else ""
+        console.print(
+            f"  {kind}  [bold]{s.name}[/bold]{parent}"
+            f"  [dim]{s.file_path}:{s.lineno}[/dim]"
+            f"  [dim]score {ss.score}[/dim]"
+        )
+
+    # ── suggested routes ─────────────────────────────────────────────────────
+    _section("Suggested routes", len(result.suggested_routes))
+    for r in result.suggested_routes:
+        console.print(
+            f"  [green]{r.method.upper()}[/green]  {r.path}"
+            f"  [dim]→ {r.function_name}  ({r.file_path})[/dim]"
+        )
+
+    # ── suggested tests ──────────────────────────────────────────────────────
+    _section("Suggested tests", len(result.suggested_tests))
+    for t in result.suggested_tests:
+        console.print(f"  [magenta]{t}[/magenta]")
+
+    if not any([
+        result.suggested_files,
+        result.suggested_symbols,
+        result.suggested_routes,
+        result.suggested_tests,
+    ]):
+        console.print("\n[dim]No matches found. Try different keywords or run `repo-brain index` first.[/dim]")
+
+    # ── write artifact ───────────────────────────────────────────────────────
+    out = bd / "last_context.json"
     out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
     console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
 
