@@ -76,6 +76,43 @@
     "test_classes": []
   },
   {
+    "file_path": "tests/test_mcp_server.py",
+    "test_functions": [
+      "test_six_tools_defined",
+      "test_tool_names",
+      "test_all_tools_have_description",
+      "test_all_tools_have_input_schema",
+      "test_status_returns_file_count",
+      "test_status_returns_project_name",
+      "test_status_returns_modules",
+      "test_status_returns_routes_count",
+      "test_status_missing_index",
+      "test_search_symbol_finds_class",
+      "test_search_symbol_case_insensitive",
+      "test_search_symbol_substring",
+      "test_search_symbol_type_filter",
+      "test_search_symbol_no_match",
+      "test_search_symbol_includes_file_and_line",
+      "test_related_files_finds_test",
+      "test_related_files_finds_importer",
+      "test_related_files_likely_affected_union",
+      "test_related_files_excludes_self",
+      "test_impact_returns_symbols",
+      "test_impact_returns_routes",
+      "test_impact_has_all_keys",
+      "test_tests_returns_all_when_no_file",
+      "test_tests_filtered_by_file",
+      "test_tests_includes_functions",
+      "test_task_context_returns_keywords",
+      "test_task_context_suggests_files",
+      "test_task_context_suggests_routes",
+      "test_task_context_has_all_keys",
+      "test_make_server_returns_server",
+      "test_make_server_name"
+    ],
+    "test_classes": []
+  },
+  {
     "file_path": "tests/test_pytest_detection.py",
     "test_functions": [
       "test_is_test_file_prefix",

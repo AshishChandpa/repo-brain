@@ -3,48 +3,56 @@
     "file_path": "src/repo_brain/cli.py",
     "name": "init",
     "symbol_type": "function",
-    "lineno": 30,
-    "end_lineno": 43,
+    "lineno": 31,
+    "end_lineno": 44,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "index",
     "symbol_type": "function",
-    "lineno": 47,
-    "end_lineno": 87,
+    "lineno": 48,
+    "end_lineno": 88,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "repo_map",
     "symbol_type": "function",
-    "lineno": 91,
-    "end_lineno": 140,
+    "lineno": 92,
+    "end_lineno": 141,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "impact",
     "symbol_type": "function",
-    "lineno": 144,
-    "end_lineno": 205,
+    "lineno": 145,
+    "end_lineno": 206,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "context",
     "symbol_type": "function",
-    "lineno": 209,
-    "end_lineno": 276,
+    "lineno": 210,
+    "end_lineno": 277,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "name": "serve",
+    "symbol_type": "function",
+    "lineno": 281,
+    "end_lineno": 293,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/cli.py",
     "name": "_section",
     "symbol_type": "function",
-    "lineno": 279,
-    "end_lineno": 281,
+    "lineno": 296,
+    "end_lineno": 298,
     "parent": null
   },
   {
@@ -212,15 +220,15 @@
     "name": "_find_importers",
     "symbol_type": "function",
     "lineno": 104,
-    "end_lineno": 114,
+    "end_lineno": 130,
     "parent": null
   },
   {
     "file_path": "src/repo_brain/impact.py",
     "name": "_name_heuristic_tests",
     "symbol_type": "function",
-    "lineno": 117,
-    "end_lineno": 124,
+    "lineno": 133,
+    "end_lineno": 140,
     "parent": null
   },
   {
@@ -229,6 +237,118 @@
     "symbol_type": "function",
     "lineno": 15,
     "end_lineno": 17,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_status",
+    "symbol_type": "function",
+    "lineno": 20,
+    "end_lineno": 37,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_search_symbol",
+    "symbol_type": "function",
+    "lineno": 40,
+    "end_lineno": 57,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_related_files",
+    "symbol_type": "function",
+    "lineno": 60,
+    "end_lineno": 68,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_impact",
+    "symbol_type": "function",
+    "lineno": 71,
+    "end_lineno": 74,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_tests",
+    "symbol_type": "function",
+    "lineno": 77,
+    "end_lineno": 87,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "handle_task_context",
+    "symbol_type": "function",
+    "lineno": 90,
+    "end_lineno": 109,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "make_server",
+    "symbol_type": "function",
+    "lineno": 186,
+    "end_lineno": 207,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "_dispatch",
+    "symbol_type": "function",
+    "lineno": 210,
+    "end_lineno": 223,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "run_server",
+    "symbol_type": "async_function",
+    "lineno": 226,
+    "end_lineno": 233,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "_load_json",
+    "symbol_type": "function",
+    "lineno": 240,
+    "end_lineno": 241,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "_count_json",
+    "symbol_type": "function",
+    "lineno": 244,
+    "end_lineno": 245,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "_load_impact",
+    "symbol_type": "function",
+    "lineno": 248,
+    "end_lineno": 249,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "list_tools",
+    "symbol_type": "async_function",
+    "lineno": 191,
+    "end_lineno": 192,
+    "parent": null
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "name": "call_tool",
+    "symbol_type": "async_function",
+    "lineno": 195,
+    "end_lineno": 205,
     "parent": null
   },
   {
@@ -901,6 +1021,262 @@
     "symbol_type": "function",
     "lineno": 155,
     "end_lineno": 157,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "indexed_repo",
+    "symbol_type": "function",
+    "lineno": 29,
+    "end_lineno": 91,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_six_tools_defined",
+    "symbol_type": "function",
+    "lineno": 98,
+    "end_lineno": 99,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_tool_names",
+    "symbol_type": "function",
+    "lineno": 101,
+    "end_lineno": 110,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_all_tools_have_description",
+    "symbol_type": "function",
+    "lineno": 112,
+    "end_lineno": 114,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_all_tools_have_input_schema",
+    "symbol_type": "function",
+    "lineno": 116,
+    "end_lineno": 118,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_status_returns_file_count",
+    "symbol_type": "function",
+    "lineno": 125,
+    "end_lineno": 128,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_status_returns_project_name",
+    "symbol_type": "function",
+    "lineno": 130,
+    "end_lineno": 133,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_status_returns_modules",
+    "symbol_type": "function",
+    "lineno": 135,
+    "end_lineno": 138,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_status_returns_routes_count",
+    "symbol_type": "function",
+    "lineno": 140,
+    "end_lineno": 143,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_status_missing_index",
+    "symbol_type": "function",
+    "lineno": 145,
+    "end_lineno": 149,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_finds_class",
+    "symbol_type": "function",
+    "lineno": 156,
+    "end_lineno": 159,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_case_insensitive",
+    "symbol_type": "function",
+    "lineno": 161,
+    "end_lineno": 164,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_substring",
+    "symbol_type": "function",
+    "lineno": 166,
+    "end_lineno": 170,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_type_filter",
+    "symbol_type": "function",
+    "lineno": 172,
+    "end_lineno": 175,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_no_match",
+    "symbol_type": "function",
+    "lineno": 177,
+    "end_lineno": 180,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_search_symbol_includes_file_and_line",
+    "symbol_type": "function",
+    "lineno": 182,
+    "end_lineno": 186,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_related_files_finds_test",
+    "symbol_type": "function",
+    "lineno": 193,
+    "end_lineno": 196,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_related_files_finds_importer",
+    "symbol_type": "function",
+    "lineno": 198,
+    "end_lineno": 201,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_related_files_likely_affected_union",
+    "symbol_type": "function",
+    "lineno": 203,
+    "end_lineno": 207,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_related_files_excludes_self",
+    "symbol_type": "function",
+    "lineno": 209,
+    "end_lineno": 212,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_impact_returns_symbols",
+    "symbol_type": "function",
+    "lineno": 219,
+    "end_lineno": 222,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_impact_returns_routes",
+    "symbol_type": "function",
+    "lineno": 224,
+    "end_lineno": 227,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_impact_has_all_keys",
+    "symbol_type": "function",
+    "lineno": 229,
+    "end_lineno": 233,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_tests_returns_all_when_no_file",
+    "symbol_type": "function",
+    "lineno": 240,
+    "end_lineno": 243,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_tests_filtered_by_file",
+    "symbol_type": "function",
+    "lineno": 245,
+    "end_lineno": 248,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_tests_includes_functions",
+    "symbol_type": "function",
+    "lineno": 250,
+    "end_lineno": 254,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_task_context_returns_keywords",
+    "symbol_type": "function",
+    "lineno": 261,
+    "end_lineno": 264,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_task_context_suggests_files",
+    "symbol_type": "function",
+    "lineno": 266,
+    "end_lineno": 270,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_task_context_suggests_routes",
+    "symbol_type": "function",
+    "lineno": 272,
+    "end_lineno": 275,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_task_context_has_all_keys",
+    "symbol_type": "function",
+    "lineno": 277,
+    "end_lineno": 281,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_make_server_returns_server",
+    "symbol_type": "function",
+    "lineno": 288,
+    "end_lineno": 291,
+    "parent": null
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "name": "test_make_server_name",
+    "symbol_type": "function",
+    "lineno": 293,
+    "end_lineno": 295,
     "parent": null
   },
   {

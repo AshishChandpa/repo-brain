@@ -64,11 +64,59 @@ repo-brain index                                         # scans the repo and wr
 repo-brain map                                           # prints a Rich summary table in the terminal
 repo-brain impact src/services/users.py                  # show what breaks if this file changes
 repo-brain context "add audit logging to document upload" # suggest files/symbols for a task
+repo-brain serve                                         # start MCP server for Claude Code / Cursor
 ```
 
 ---
 
 ## Commands
+
+### `repo-brain serve`
+
+Starts an MCP server on stdio so AI coding agents can call repo-brain tools directly.
+
+```bash
+repo-brain serve
+repo-brain serve --root /path/to/repo
+```
+
+**Requires `repo-brain index` to have been run first.**
+
+#### Connecting to Claude Code
+
+Add this to your Claude Code MCP config (`.claude/mcp.json` or via `/mcp` settings):
+
+```json
+{
+  "mcpServers": {
+    "repo-brain": {
+      "command": "repo-brain",
+      "args": ["serve", "--root", "/absolute/path/to/your/repo"]
+    }
+  }
+}
+```
+
+Or using the Claude Code CLI:
+
+```bash
+claude mcp add repo-brain -- repo-brain serve --root /absolute/path/to/your/repo
+```
+
+#### Available MCP tools
+
+| Tool | Input | What it returns |
+|------|-------|-----------------|
+| `repo_brain_status` | _(none)_ | Project name, file/class/function/route/test counts, scan timestamp |
+| `repo_brain_search_symbol` | `name`, `symbol_type?` | Matching symbols with file path and line number |
+| `repo_brain_related_files` | `file_path` | Files that import this module, related tests, likely affected |
+| `repo_brain_impact` | `file_path` | Full impact analysis: symbols, routes, importers, related tests |
+| `repo_brain_tests` | `file_path?` | All tests, or tests related to a specific file |
+| `repo_brain_task_context` | `task` | Keyword-ranked suggested files, symbols, routes, and tests |
+
+All tool responses are JSON strings. Results are always read from the last `repo-brain index` run.
+
+---
 
 ### `repo-brain context "<task>"`
 
@@ -385,5 +433,5 @@ All tests must pass before committing. Every parser module has a corresponding t
 | v1 | `init` / `index` / `map`, JSON + Markdown artifacts | Done |
 | v2 | `repo-brain impact <file>` — show affected routes, tests, imports | Done |
 | v3 | `repo-brain context "<task>"` — suggest files and symbols for a task | Done |
-| v4 | MCP server exposing repo context as tools | Next |
-| v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) | Planned |
+| v4 | `repo-brain serve` — MCP server exposing repo context as tools | Done |
+| v5 | AI agent workflow skills (safe-refactor, bug-investigation, …) | Next |

@@ -25,9 +25,10 @@ repo-brain index                   # scan repo, write all artifacts
 repo-brain map                     # print Rich summary from artifacts
 repo-brain impact <file>           # reverse lookup: what does changing this file affect?
 repo-brain context "<task>"        # keyword scoring: what files/symbols are relevant to a task?
+repo-brain serve                   # start MCP server on stdio (for Claude Code / Cursor)
 ```
 
-Do NOT add: MCP server, skills, embeddings, vector search, Neo4j, UI, cloud sync,
+Do NOT add: skills, embeddings, vector search, Neo4j, UI, cloud sync,
 multi-language support, or autonomous agents — those are future phases.
 
 ## Key files
@@ -40,6 +41,7 @@ multi-language support, or autonomous agents — those are future phases.
 | `src/repo_brain/scanner.py` | Filesystem walk + parser orchestration |
 | `src/repo_brain/impact.py` | Reverse lookup: who imports, related tests, affected files |
 | `src/repo_brain/context.py` | Keyword scoring: extract keywords, score/rank files, symbols, routes, tests |
+| `src/repo_brain/mcp_server.py` | MCP server: 6 tool handlers + Server wiring for stdio transport |
 | `src/repo_brain/parsers/python_ast.py` | Import + symbol extraction via `ast` |
 | `src/repo_brain/parsers/fastapi.py` | FastAPI route decorator detection |
 | `src/repo_brain/parsers/pytest.py` | Test file/function/class detection |
@@ -49,10 +51,11 @@ multi-language support, or autonomous agents — those are future phases.
 ## Before finishing any task
 
 ```bash
-python -m pytest                                              # all 82 tests must pass
-repo-brain index && repo-brain map                            # smoke test the CLI
+python -m pytest                                             # all 113 tests must pass
+repo-brain index && repo-brain map                           # smoke test the CLI
 repo-brain impact src/repo_brain/scanner.py                  # smoke test impact
 repo-brain context "scan python files and extract symbols"   # smoke test context
+repo-brain serve --help                                      # verify serve command registered
 ```
 
 ## Re-index rule

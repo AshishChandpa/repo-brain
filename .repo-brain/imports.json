@@ -127,6 +127,13 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.mcp_server",
+    "name": "run_server",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.models",
     "name": "RepoMap",
     "alias": null,
@@ -163,6 +170,13 @@
   {
     "file_path": "src/repo_brain/cli.py",
     "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "asyncio",
     "name": null,
     "alias": null,
     "level": 0
@@ -323,6 +337,111 @@
   },
   {
     "file_path": "src/repo_brain/impact.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "mcp",
+    "name": "types",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "mcp.server",
+    "name": "Server",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "mcp.server.stdio",
+    "name": "stdio_server",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.config",
+    "name": "brain_dir",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.context",
+    "name": "build_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.context",
+    "name": "load_context_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.impact",
+    "name": "analyse",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.impact",
+    "name": "load_impact_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
     "module": "repo_brain.models",
     "name": "TestInfo",
     "alias": null,
@@ -710,6 +829,160 @@
     "file_path": "tests/test_impact.py",
     "module": "pathlib",
     "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "textwrap",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "pytest",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.config",
+    "name": "save_config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_impact",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_related_files",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_search_symbol",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_status",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_task_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "handle_tests",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "_TOOLS",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.mcp_server",
+    "name": "make_server",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.scanner",
+    "name": "scan",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.scanner",
+    "name": "top_level_modules",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.writers.json_writer",
+    "name": "write_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.writers.markdown_writer",
+    "name": "write_markdown",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "repo_brain.models",
+    "name": "RepoMap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "datetime",
+    "name": "datetime",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "datetime",
+    "name": "timezone",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_mcp_server.py",
+    "module": "mcp.server",
+    "name": "Server",
     "alias": null,
     "level": 0
   },
