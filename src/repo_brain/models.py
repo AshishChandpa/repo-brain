@@ -23,7 +23,10 @@ class ImportInfo(BaseModel):
 class SymbolInfo(BaseModel):
     file_path: str
     name: str
-    symbol_type: Literal["class", "function", "async_function", "method", "async_method"]
+    symbol_type: Literal[
+        "class", "function", "async_function", "method", "async_method",
+        "struct", "interface", "arrow_function", "async_arrow_function",
+    ]
     lineno: int
     end_lineno: int | None = None
     parent: str | None = None
@@ -47,6 +50,7 @@ class RepoMap(BaseModel):
     project_name: str | None
     scan_timestamp: str
     python_file_count: int
+    file_counts: dict[str, int] = {}
     top_level_modules: list[str]
     artifact_paths: dict[str, str]
 

@@ -163,6 +163,13 @@
   {
     "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.scanner",
+    "name": "file_counts_by_language",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.scanner",
     "name": "scan",
     "alias": null,
     "level": 0
@@ -248,13 +255,6 @@
     "file_path": "src/repo_brain/context.py",
     "module": "re",
     "name": null,
-    "alias": null,
-    "level": 0
-  },
-  {
-    "file_path": "src/repo_brain/context.py",
-    "module": "pathlib",
-    "name": "Path",
     "alias": null,
     "level": 0
   },
@@ -511,6 +511,90 @@
     "level": 0
   },
   {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "re",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "re",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
     "file_path": "src/repo_brain/parsers/pytest.py",
     "module": "__future__",
     "name": "annotations",
@@ -582,6 +666,13 @@
   },
   {
     "file_path": "src/repo_brain/scanner.py",
+    "module": "collections",
+    "name": "Counter",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
     "module": "pathlib",
     "name": "Path",
     "alias": null,
@@ -610,37 +701,51 @@
   },
   {
     "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers",
+    "name": "go",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers",
+    "name": "node",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.fastapi",
     "name": "parse_routes",
-    "alias": null,
+    "alias": "parse_fastapi_routes",
     "level": 0
   },
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.pytest",
     "name": "is_test_file",
-    "alias": null,
+    "alias": "is_py_test",
     "level": 0
   },
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.pytest",
     "name": "parse_tests",
-    "alias": null,
+    "alias": "parse_py_tests",
     "level": 0
   },
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.python_ast",
     "name": "parse_imports",
-    "alias": null,
+    "alias": "parse_py_imports",
     "level": 0
   },
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.python_ast",
     "name": "parse_symbols",
-    "alias": null,
+    "alias": "parse_py_symbols",
     "level": 0
   },
   {
@@ -751,6 +856,13 @@
   {
     "file_path": "tests/test_context.py",
     "module": "repo_brain.context",
+    "name": "_tokenize_path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_context.py",
+    "module": "repo_brain.context",
     "name": "build_context",
     "alias": null,
     "level": 0
@@ -787,6 +899,41 @@
     "file_path": "tests/test_fastapi_routes.py",
     "module": "repo_brain.parsers.fastapi",
     "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_go.py",
+    "module": "repo_brain.parsers.go",
+    "name": "is_test_file",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_go.py",
+    "module": "repo_brain.parsers.go",
+    "name": "parse_imports",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_go.py",
+    "module": "repo_brain.parsers.go",
+    "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_go.py",
+    "module": "repo_brain.parsers.go",
+    "name": "parse_symbols",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_go.py",
+    "module": "repo_brain.parsers.go",
+    "name": "parse_tests",
     "alias": null,
     "level": 0
   },
@@ -1004,6 +1151,41 @@
     "file_path": "tests/test_mcp_server.py",
     "module": "mcp.server",
     "name": "Server",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_node.py",
+    "module": "repo_brain.parsers.node",
+    "name": "is_test_file",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_node.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_imports",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_node.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_node.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_symbols",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_node.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_tests",
     "alias": null,
     "level": 0
   },

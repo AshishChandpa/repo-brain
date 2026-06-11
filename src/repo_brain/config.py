@@ -21,6 +21,12 @@ class Config(BaseModel):
         ".pytest_cache",
         "node_modules",
         ".repo-brain",
+        "dist",
+        "build",
+        "vendor",
+        ".next",
+        ".nuxt",
+        "coverage",
     ]
     include_extensions: list[str] = [".py"]
 

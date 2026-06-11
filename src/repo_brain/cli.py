@@ -18,7 +18,7 @@ from repo_brain.context import build_context, load_context_artifacts
 from repo_brain.impact import analyse, load_impact_artifacts
 from repo_brain.mcp_server import run_server
 from repo_brain.models import RepoMap
-from repo_brain.scanner import scan, top_level_modules
+from repo_brain.scanner import file_counts_by_language, scan, top_level_modules
 from repo_brain.writers.json_writer import write_artifacts
 from repo_brain.writers.markdown_writer import write_markdown
 
@@ -64,11 +64,13 @@ def index(
 
     modules = top_level_modules(result.files, root)
     timestamp = datetime.now(timezone.utc).isoformat()
+    lang_counts = file_counts_by_language(result.files)
 
     repo_map = RepoMap(
         project_name=config.project_name,
         scan_timestamp=timestamp,
-        python_file_count=len(result.files),
+        python_file_count=lang_counts.get("python", 0),
+        file_counts=lang_counts,
         top_level_modules=modules,
         artifact_paths={
             "repo_map": str(bd / "repo_map.json"),
@@ -83,7 +85,9 @@ def index(
     write_artifacts(bd, result, repo_map)
     write_markdown(bd, result, repo_map)
 
-    console.print(f"[green]Indexed {len(result.files)} Python files.[/green]")
+    total = len(result.files)
+    lang_summary = "  ".join(f"{lang}: {count}" for lang, count in sorted(lang_counts.items()))
+    console.print(f"[green]Indexed {total} file(s).[/green]  [dim]{lang_summary}[/dim]")
     console.print(f"  Symbols : {len(result.symbols)}")
     console.print(f"  Imports : {len(result.imports)}")
     console.print(f"  Routes  : {len(result.routes)}")
@@ -123,8 +127,12 @@ def repo_map(
     table.add_column("Value")
 
     project = data.get("project_name") or "[dim]unnamed[/dim]"
+    lang_counts = data.get("file_counts", {})
+    total_files = sum(lang_counts.values()) if lang_counts else data.get("python_file_count", 0)
+    lang_str = "  ".join(f"{l}: {c}" for l, c in sorted(lang_counts.items())) if lang_counts else ""
+
     table.add_row("Project", project)
-    table.add_row("Python files", str(data.get("python_file_count", 0)))
+    table.add_row("Total files", f"{total_files}  [dim]{lang_str}[/dim]" if lang_str else str(total_files))
     table.add_row("Classes", str(classes))
     table.add_row("Functions", str(functions))
     table.add_row("FastAPI routes", str(routes_count))

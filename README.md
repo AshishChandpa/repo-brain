@@ -444,12 +444,30 @@ All tests must pass before committing. Every parser module has a corresponding t
 
 ---
 
-## Limitations (v1)
+## Multi-language support
 
-- Python only — no TypeScript, Go, or other languages
-- FastAPI route detection requires a literal string path argument; dynamic paths like `@router.get(PREFIX + "/users")` are skipped
+repo-brain supports Python, Node.js/TypeScript, and Go out of the box.
+Add the extensions you need to `config.json`:
+
+```json
+{
+  "include_extensions": [".py", ".ts", ".js", ".go"]
+}
+```
+
+Or mix and match per project:
+
+| Language | Extensions | Routes detected | Tests detected |
+|----------|-----------|----------------|----------------|
+| Python | `.py` | FastAPI (`@app.get`, `@router.post`) | `test_*.py`, `*_test.py` |
+| Node.js / TypeScript | `.js` `.ts` `.mjs` `.tsx` | Express, Fastify (`app.get`, `router.post`) | `*.test.js`, `*.spec.ts` |
+| Go | `.go` | gin, chi, net/http | `*_test.go`, `func TestXxx` |
+
+## Limitations
+
+- Route detection covers common frameworks; dynamic/programmatic route registration may be missed
 - No incremental indexing — every `index` run is a full scan
-- No MCP server, no embeddings, no vector search (planned for later phases)
+- No embeddings or vector search
 
 ---
 
