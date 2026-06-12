@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import re
+import subprocess
+from pathlib import Path
 
 from repo_brain.models import (
     ContextResult,
@@ -24,6 +26,7 @@ _STOPWORDS = {
 
 _TOP_N_FILES = 10
 _TOP_N_SYMBOLS = 10
+_DIFF_SCORE_BONUS = 2
 
 
 def load_context_artifacts(brain_dir: Path) -> tuple[
@@ -43,12 +46,30 @@ def load_context_artifacts(brain_dir: Path) -> tuple[
     return symbols, routes, imports, tests
 
 
+def get_diff_files(root: Path, since_ref: str) -> set[str]:
+    """Return relative file paths that changed since the given git ref."""
+    try:
+        result = subprocess.run(
+            ["git", "diff", "--name-only", since_ref],
+            cwd=str(root),
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        if result.returncode == 0:
+            return {line.strip() for line in result.stdout.splitlines() if line.strip()}
+    except Exception:
+        pass
+    return set()
+
+
 def build_context(
     task: str,
     symbols: list[SymbolInfo],
     routes: list[RouteInfo],
     imports: list[ImportInfo],
     tests: list[TestInfo],
+    diff_files: set[str] | None = None,
 ) -> ContextResult:
     keywords = _extract_keywords(task)
 
@@ -63,8 +84,8 @@ def build_context(
     for t in tests:
         all_files.add(t.file_path)
 
-    # score files
-    scored_files = _score_files(sorted(all_files), keywords)
+    # score files (apply diff bonus for recently changed files)
+    scored_files = _score_files(sorted(all_files), keywords, diff_files or set())
 
     # score symbols
     scored_symbols = _score_symbols(symbols, keywords)
@@ -73,7 +94,6 @@ def build_context(
     matched_routes = _match_routes(routes, keywords)
 
     # match test files
-    test_file_paths = [t.file_path for t in tests]
     matched_tests = _match_tests(tests, keywords)
 
     return ContextResult(
@@ -125,11 +145,17 @@ def _score_token_list(tokens: list[str], keywords: list[str]) -> int:
     return sum(1 for kw in keywords if kw in token_set)
 
 
-def _score_files(file_paths: list[str], keywords: list[str]) -> list[ScoredFile]:
+def _score_files(
+    file_paths: list[str],
+    keywords: list[str],
+    diff_files: set[str],
+) -> list[ScoredFile]:
     scored: list[ScoredFile] = []
     for path in file_paths:
         tokens = _tokenize_path(path)
         score = _score_token_list(tokens, keywords)
+        if path in diff_files:
+            score += _DIFF_SCORE_BONUS
         if score > 0:
             scored.append(ScoredFile(path=path, score=score))
     return sorted(scored, key=lambda x: x.score, reverse=True)

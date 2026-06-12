@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "repo-brain"
-version = "0.2.0"
+version = "0.3.0"
 description = "Local repository context engine for AI coding agents"
 readme = "README.md"
 license = { text = "MIT" }
@@ -29,6 +29,7 @@ dependencies = [
     "rich>=13",
     "pydantic>=2",
     "mcp>=1.0",
+    "watchdog>=3.0",
 ]
 
 [project.urls]

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from repo_brain.models import ImportInfo, RouteInfo, SymbolInfo, TestInfo
+from repo_brain.models import CallInfo, ImportInfo, RouteInfo, RouteLink, SymbolInfo, TestInfo
 
 # ---------------------------------------------------------------------------
 # constants
@@ -55,6 +55,18 @@ _IT_TEST_RE = re.compile(
 _DESCRIBE_RE = re.compile(
     r"^\s*describe\s*\(\s*['\"`]([^'\"`]+)['\"`]",
     re.MULTILINE,
+)
+
+# function call: identifier followed by ( — used for call graph
+_CALL_RE = re.compile(r"\b([a-zA-Z_$][\w$]*)\s*\(")
+
+# fetch/axios HTTP calls for route linking
+_FETCH_RE = re.compile(
+    r"fetch\s*\(\s*['\"`]([^'\"`]+)['\"`]",
+)
+_AXIOS_RE = re.compile(
+    r"axios\s*\.\s*(get|post|put|patch|delete)\s*\(\s*['\"`]([^'\"`]+)['\"`]",
+    re.IGNORECASE,
 )
 
 
@@ -156,3 +168,75 @@ def parse_tests(file_path: str, source: str) -> TestInfo:
         test_functions=test_functions,
         test_classes=test_classes,
     )
+
+
+def parse_calls(file_path: str, source: str) -> list[CallInfo]:
+    """Extract function call sites. Associates each call with its enclosing function."""
+    _SKIP_KEYWORDS = {
+        "if", "for", "while", "switch", "catch", "function", "class",
+        "return", "typeof", "instanceof", "new", "import", "require",
+        "console", "Promise", "Array", "Object", "Math", "JSON",
+    }
+    results: list[CallInfo] = []
+    lines = source.splitlines()
+
+    # Determine enclosing function per line (rough heuristic using named function/arrow declarations)
+    func_ranges: list[tuple[int, int, str]] = []  # (start_line, end_line, name) — approx
+    for m in _FUNC_RE.finditer(source):
+        start = source[: m.start()].count("\n") + 1
+        func_ranges.append((start, start + 50, m.group(1)))  # rough range
+    for m in _ARROW_RE.finditer(source):
+        start = source[: m.start()].count("\n") + 1
+        func_ranges.append((start, start + 50, m.group(1)))
+
+    def _enclosing(lineno: int) -> str:
+        best: tuple[int, str] = (0, "<module>")
+        for s, e, name in func_ranges:
+            if s <= lineno and s > best[0]:
+                best = (s, name)
+        return best[1]
+
+    for i, line in enumerate(lines, 1):
+        for m in _CALL_RE.finditer(line):
+            callee = m.group(1)
+            if callee in _SKIP_KEYWORDS:
+                continue
+            results.append(CallInfo(
+                caller_file=file_path,
+                caller_name=_enclosing(i),
+                callee_name=callee,
+                lineno=i,
+            ))
+
+    return results
+
+
+def parse_fetch_calls(file_path: str, source: str) -> list[RouteLink]:
+    """Detect fetch() and axios.method() calls for frontend→backend route linking."""
+    results: list[RouteLink] = []
+
+    for m in _FETCH_RE.finditer(source):
+        pattern = m.group(1)
+        if not pattern.startswith("/"):
+            continue
+        lineno = source[: m.start()].count("\n") + 1
+        results.append(RouteLink(
+            frontend_file=file_path,
+            frontend_lineno=lineno,
+            pattern=pattern,
+            method="unknown",
+        ))
+
+    for m in _AXIOS_RE.finditer(source):
+        method, pattern = m.group(1).lower(), m.group(2)
+        if not pattern.startswith("/"):
+            continue
+        lineno = source[: m.start()].count("\n") + 1
+        results.append(RouteLink(
+            frontend_file=file_path,
+            frontend_lineno=lineno,
+            pattern=pattern,
+            method=method,
+        ))
+
+    return results

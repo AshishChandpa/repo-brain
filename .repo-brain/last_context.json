@@ -1,139 +1,53 @@
 {
-  "task": "scan python files and extract symbols",
+  "task": "add rate limiting middleware",
   "keywords": [
-    "scan",
-    "python",
-    "files",
-    "extract",
-    "symbols"
+    "rate",
+    "limiting",
+    "middleware"
   ],
   "suggested_files": [
     {
+      "path": "src/repo_brain/cli.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/context.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/impact.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/mcp_server.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/models.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/parsers/go.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/parsers/node.py",
+      "score": 2
+    },
+    {
       "path": "src/repo_brain/parsers/python_ast.py",
-      "score": 1
+      "score": 2
     },
     {
-      "path": "tests/test_python_ast.py",
-      "score": 1
+      "path": "src/repo_brain/scanner.py",
+      "score": 2
+    },
+    {
+      "path": "src/repo_brain/writers/json_writer.py",
+      "score": 2
     }
   ],
-  "suggested_symbols": [
-    {
-      "symbol": {
-        "file_path": "src/repo_brain/parsers/python_ast.py",
-        "name": "parse_symbols",
-        "symbol_type": "function",
-        "lineno": 41,
-        "end_lineno": 83,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_python_ast.py",
-        "name": "test_symbols_class",
-        "symbol_type": "function",
-        "lineno": 40,
-        "end_lineno": 43,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_python_ast.py",
-        "name": "test_symbols_methods",
-        "symbol_type": "function",
-        "lineno": 46,
-        "end_lineno": 49,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_python_ast.py",
-        "name": "test_symbols_async_method",
-        "symbol_type": "function",
-        "lineno": 52,
-        "end_lineno": 55,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_python_ast.py",
-        "name": "test_symbols_top_level_function",
-        "symbol_type": "function",
-        "lineno": 58,
-        "end_lineno": 61,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_python_ast.py",
-        "name": "test_symbols_async_top_level",
-        "symbol_type": "function",
-        "lineno": 64,
-        "end_lineno": 67,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_scanner.py",
-        "name": "test_scan_finds_py_files",
-        "symbol_type": "function",
-        "lineno": 35,
-        "end_lineno": 41,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "tests/test_scanner.py",
-        "name": "test_scan_marks_test_files",
-        "symbol_type": "function",
-        "lineno": 44,
-        "end_lineno": 49,
-        "parent": null
-      },
-      "score": 2
-    },
-    {
-      "symbol": {
-        "file_path": "src/repo_brain/context.py",
-        "name": "_extract_keywords",
-        "symbol_type": "function",
-        "lineno": 94,
-        "end_lineno": 106,
-        "parent": null
-      },
-      "score": 1
-    },
-    {
-      "symbol": {
-        "file_path": "src/repo_brain/context.py",
-        "name": "_score_files",
-        "symbol_type": "function",
-        "lineno": 127,
-        "end_lineno": 134,
-        "parent": null
-      },
-      "score": 1
-    }
-  ],
+  "suggested_symbols": [],
   "suggested_routes": [],
-  "suggested_tests": [
-    "tests/test_context.py",
-    "tests/test_impact.py",
-    "tests/test_python_ast.py",
-    "tests/test_scanner.py"
-  ]
+  "suggested_tests": []
 }

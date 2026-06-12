@@ -9,12 +9,13 @@ from mcp.server.stdio import stdio_server
 
 from repo_brain.config import brain_dir
 from repo_brain.context import build_context, load_context_artifacts
+from repo_brain.export import export_context
+from repo_brain.gaps import find_gaps, load_gaps_artifacts
 from repo_brain.impact import analyse, load_impact_artifacts
 from repo_brain.models import ImportInfo, RouteInfo, SymbolInfo, TestInfo
 
 # ---------------------------------------------------------------------------
 # Pure handler functions — each returns a plain dict/list, no MCP coupling.
-# These are what tests exercise directly.
 # ---------------------------------------------------------------------------
 
 def handle_status(bd: Path) -> dict:
@@ -25,15 +26,18 @@ def handle_status(bd: Path) -> dict:
     routes_count = _count_json(bd / "routes.json")
     symbols = _load_json(bd / "symbols.json")
     tests_count = _count_json(bd / "tests.json")
+    calls_count = _count_json(bd / "call_graph.json")
     return {
         "project_name": data.get("project_name"),
         "python_file_count": data.get("python_file_count", 0),
+        "file_counts": data.get("file_counts", {}),
         "top_level_modules": data.get("top_level_modules", []),
         "scan_timestamp": data.get("scan_timestamp"),
         "classes": sum(1 for s in symbols if s.get("symbol_type") == "class"),
         "functions": sum(1 for s in symbols if s.get("symbol_type") in ("function", "async_function")),
         "routes": routes_count,
         "test_files": tests_count,
+        "call_graph_edges": calls_count,
     }
 
 
@@ -58,19 +62,20 @@ def handle_search_symbol(bd: Path, name: str, symbol_type: str | None = None) ->
 
 
 def handle_related_files(bd: Path, file_path: str) -> dict:
-    symbols, routes, imports, tests = _load_impact(bd)
-    result = analyse(file_path, symbols, routes, imports, tests)
+    symbols, routes, imports, tests, calls = _load_impact(bd)
+    result = analyse(file_path, symbols, routes, imports, tests, calls)
     return {
         "target_file": result.target_file,
         "imported_by": result.imported_by,
+        "callers": result.callers,
         "related_tests": result.related_tests,
         "likely_affected": result.likely_affected,
     }
 
 
 def handle_impact(bd: Path, file_path: str) -> dict:
-    symbols, routes, imports, tests = _load_impact(bd)
-    result = analyse(file_path, symbols, routes, imports, tests)
+    symbols, routes, imports, tests, calls = _load_impact(bd)
+    result = analyse(file_path, symbols, routes, imports, tests, calls)
     return result.model_dump()
 
 
@@ -109,6 +114,21 @@ def handle_task_context(bd: Path, task: str) -> dict:
     }
 
 
+def handle_gaps(bd: Path, file_path: str | None = None) -> list[dict]:
+    symbols, tests = load_gaps_artifacts(bd)
+    gaps = find_gaps(symbols, tests, file_filter=file_path)
+    return [g.model_dump() for g in gaps]
+
+
+def handle_export_context(bd: Path, root: Path, task: str) -> str:
+    return export_context(task, bd, root)
+
+
+def handle_route_links(bd: Path) -> list[dict]:
+    raw = _load_json(bd / "route_links.json")
+    return raw
+
+
 # ---------------------------------------------------------------------------
 # MCP server wiring
 # ---------------------------------------------------------------------------
@@ -116,7 +136,7 @@ def handle_task_context(bd: Path, task: str) -> dict:
 _TOOLS = [
     types.Tool(
         name="repo_brain_status",
-        description="Return a summary of the indexed repository: file count, modules, classes, functions, routes, and test files.",
+        description="Return a summary of the indexed repository: file count, modules, classes, functions, routes, test files, and call graph edges.",
         inputSchema={"type": "object", "properties": {}},
     ),
     types.Tool(
@@ -136,7 +156,7 @@ _TOOLS = [
     ),
     types.Tool(
         name="repo_brain_related_files",
-        description="Given a file path, return files that import it, related test files, and the full likely-affected list.",
+        description="Given a file path, return files that import it, files that call its functions (via call graph), related test files, and the full likely-affected list.",
         inputSchema={
             "type": "object",
             "properties": {
@@ -147,7 +167,7 @@ _TOOLS = [
     ),
     types.Tool(
         name="repo_brain_impact",
-        description="Full impact analysis for a file: symbols defined, routes, importers, related tests, and likely-affected files.",
+        description="Full impact analysis for a file: symbols defined, routes, importers, call-graph callers, related tests, and likely-affected files.",
         inputSchema={
             "type": "object",
             "properties": {
@@ -180,6 +200,35 @@ _TOOLS = [
             "required": ["task"],
         },
     ),
+    types.Tool(
+        name="repo_brain_gaps",
+        description="Return symbols (classes, functions) that have no apparent test coverage. Optionally filter to one source file.",
+        inputSchema={
+            "type": "object",
+            "properties": {
+                "file_path": {"type": "string", "description": "Optional: filter to symbols in this file"},
+            },
+        },
+    ),
+    types.Tool(
+        name="repo_brain_export_context",
+        description=(
+            "Given a task description, return a Markdown document with actual code snippets "
+            "from the most relevant files and symbols. Paste directly into AI context."
+        ),
+        inputSchema={
+            "type": "object",
+            "properties": {
+                "task": {"type": "string", "description": "Natural-language description of the task"},
+            },
+            "required": ["task"],
+        },
+    ),
+    types.Tool(
+        name="repo_brain_route_links",
+        description="Return frontend→backend route links: fetch/axios calls in JS/TS files matched to backend route handlers.",
+        inputSchema={"type": "object", "properties": {}},
+    ),
 ]
 
 
@@ -198,7 +247,7 @@ def make_server(root: Path) -> Server:
             return [types.TextContent(type="text", text=json.dumps(payload, indent=2))]
 
         try:
-            result = _dispatch(name, arguments, bd)
+            result = _dispatch(name, arguments, bd, root)
         except Exception as exc:
             result = {"error": str(exc)}
 
@@ -207,7 +256,7 @@ def make_server(root: Path) -> Server:
     return server
 
 
-def _dispatch(name: str, arguments: dict, bd: Path) -> object:
+def _dispatch(name: str, arguments: dict, bd: Path, root: Path | None = None) -> object:
     if name == "repo_brain_status":
         return handle_status(bd)
     if name == "repo_brain_search_symbol":
@@ -220,6 +269,12 @@ def _dispatch(name: str, arguments: dict, bd: Path) -> object:
         return handle_tests(bd, arguments.get("file_path"))
     if name == "repo_brain_task_context":
         return handle_task_context(bd, arguments["task"])
+    if name == "repo_brain_gaps":
+        return handle_gaps(bd, arguments.get("file_path"))
+    if name == "repo_brain_export_context":
+        return handle_export_context(bd, root or bd.parent, arguments["task"])
+    if name == "repo_brain_route_links":
+        return handle_route_links(bd)
     return {"error": f"Unknown tool: {name}"}
 
 

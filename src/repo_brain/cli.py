@@ -6,20 +6,22 @@ import shutil
 import subprocess
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 import typer
 from rich.console import Console
 from rich.panel import Panel
 from rich.table import Table
-from rich.text import Text
 
 from repo_brain.config import Config, brain_dir, load_config, save_config
-from repo_brain.context import build_context, load_context_artifacts
+from repo_brain.context import build_context, get_diff_files, load_context_artifacts
+from repo_brain.export import export_context
+from repo_brain.gaps import find_gaps, load_gaps_artifacts
 from repo_brain.impact import analyse, load_impact_artifacts
 from repo_brain.mcp_server import run_server
 from repo_brain.models import RepoMap
-from repo_brain.scanner import file_counts_by_language, scan, top_level_modules
-from repo_brain.writers.json_writer import write_artifacts
+from repo_brain.scanner import file_counts_by_language, scan, scan_incremental, top_level_modules
+from repo_brain.writers.json_writer import write_artifacts, write_hashes
 from repo_brain.writers.markdown_writer import write_markdown
 
 app = typer.Typer(
@@ -50,8 +52,13 @@ def init(
 @app.command()
 def index(
     root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+    force: bool = typer.Option(False, "--force", help="Force full re-scan (ignore file hashes)"),
 ) -> None:
-    """Scan the repository and generate context artifacts."""
+    """Scan the repository and generate context artifacts.
+
+    Uses incremental indexing by default — only re-parses changed files.
+    Use --force for a full re-scan.
+    """
     bd = brain_dir(root)
     if not bd.exists():
         console.print("[red]Run `repo-brain init` first.[/red]")
@@ -59,8 +66,13 @@ def index(
 
     config = load_config(root)
 
-    with console.status("[bold green]Scanning repository…[/bold green]"):
-        result = scan(root, config)
+    if force:
+        with console.status("[bold green]Scanning repository (full)…[/bold green]"):
+            result = scan(root, config)
+        new_hashes = None
+    else:
+        with console.status("[bold green]Scanning repository (incremental)…[/bold green]"):
+            result, new_hashes = scan_incremental(root, config, bd)
 
     modules = top_level_modules(result.files, root)
     timestamp = datetime.now(timezone.utc).isoformat()
@@ -78,21 +90,28 @@ def index(
             "imports": str(bd / "imports.json"),
             "routes": str(bd / "routes.json"),
             "tests": str(bd / "tests.json"),
+            "call_graph": str(bd / "call_graph.json"),
+            "route_links": str(bd / "route_links.json"),
             "markdown": str(bd / "REPO_MAP.md"),
         },
     )
 
     write_artifacts(bd, result, repo_map)
     write_markdown(bd, result, repo_map)
+    if new_hashes is not None:
+        write_hashes(bd, new_hashes)
 
     total = len(result.files)
     lang_summary = "  ".join(f"{lang}: {count}" for lang, count in sorted(lang_counts.items()))
     console.print(f"[green]Indexed {total} file(s).[/green]  [dim]{lang_summary}[/dim]")
-    console.print(f"  Symbols : {len(result.symbols)}")
-    console.print(f"  Imports : {len(result.imports)}")
-    console.print(f"  Routes  : {len(result.routes)}")
-    console.print(f"  Tests   : {len(result.tests)} test file(s)")
-    console.print(f"\nArtifacts written to [bold]{bd.resolve()}[/bold]")
+    console.print(f"  Symbols    : {len(result.symbols)}")
+    console.print(f"  Imports    : {len(result.imports)}")
+    console.print(f"  Routes     : {len(result.routes)}")
+    console.print(f"  Tests      : {len(result.tests)} test file(s)")
+    console.print(f"  Call edges : {len(result.calls)}")
+    console.print(f"  Route links: {len(result.route_links)}")
+    mode = "[dim](full)[/dim]" if force else "[dim](incremental)[/dim]"
+    console.print(f"\nArtifacts written to [bold]{bd.resolve()}[/bold]  {mode}")
 
 
 @app.command(name="map")
@@ -100,8 +119,6 @@ def repo_map(
     root: Path = typer.Option(Path("."), "--root", help="Repository root"),
 ) -> None:
     """Print a readable repository summary from existing artifacts."""
-    import json
-
     bd = brain_dir(root)
     map_file = bd / "repo_map.json"
 
@@ -122,6 +139,12 @@ def repo_map(
     tests_file = bd / "tests.json"
     test_file_count = len(json.loads(tests_file.read_text())) if tests_file.exists() else 0
 
+    calls_file = bd / "call_graph.json"
+    call_count = len(json.loads(calls_file.read_text())) if calls_file.exists() else 0
+
+    route_links_file = bd / "route_links.json"
+    route_links_count = len(json.loads(route_links_file.read_text())) if route_links_file.exists() else 0
+
     table = Table(title="Repository Map", show_header=False, box=None, padding=(0, 2))
     table.add_column("Key", style="bold cyan")
     table.add_column("Value")
@@ -135,8 +158,10 @@ def repo_map(
     table.add_row("Total files", f"{total_files}  [dim]{lang_str}[/dim]" if lang_str else str(total_files))
     table.add_row("Classes", str(classes))
     table.add_row("Functions", str(functions))
-    table.add_row("FastAPI routes", str(routes_count))
+    table.add_row("Routes", str(routes_count))
     table.add_row("Test files", str(test_file_count))
+    table.add_row("Call graph edges", str(call_count))
+    table.add_row("Route links", str(route_links_count))
     table.add_row("Scanned at", data.get("scan_timestamp", "—"))
 
     console.print(table)
@@ -157,23 +182,21 @@ def impact(
     file: Path = typer.Argument(..., help="Target file to analyse (relative to repo root)"),
     root: Path = typer.Option(Path("."), "--root", help="Repository root"),
 ) -> None:
-    """Show what is affected if a file changes."""
+    """Show what is affected if a file changes (import graph + call graph)."""
     bd = brain_dir(root)
 
     if not (bd / "symbols.json").exists():
         console.print("[red]No index found. Run `repo-brain index` first.[/red]")
         raise typer.Exit(1)
 
-    # normalise to a path string relative to root
     try:
         target = str(file.relative_to(root))
     except ValueError:
         target = str(file)
 
-    symbols, routes, imports, tests = load_impact_artifacts(bd)
-    result = analyse(target, symbols, routes, imports, tests)
+    symbols, routes, imports, tests, calls = load_impact_artifacts(bd)
+    result = analyse(target, symbols, routes, imports, tests, calls)
 
-    # ── header ──────────────────────────────────────────────────────────────
     console.print()
     console.print(Panel(
         f"[bold]{result.target_file}[/bold]\n[dim]module: {result.module_path or '—'}[/dim]",
@@ -181,29 +204,28 @@ def impact(
         expand=False,
     ))
 
-    # ── symbols defined here ─────────────────────────────────────────────────
     _section("Symbols defined in this file", len(result.symbols))
     for s in result.symbols:
         kind = f"[dim]{s.symbol_type}[/dim]"
         parent = f"  [dim](in {s.parent})[/dim]" if s.parent else ""
         console.print(f"  {kind}  [bold]{s.name}[/bold]{parent}  [dim]line {s.lineno}[/dim]")
 
-    # ── routes defined here ──────────────────────────────────────────────────
-    _section("FastAPI routes defined in this file", len(result.routes))
+    _section("Routes defined in this file", len(result.routes))
     for r in result.routes:
         console.print(f"  [green]{r.method.upper()}[/green]  {r.path}  [dim]→ {r.function_name}[/dim]")
 
-    # ── imported by ──────────────────────────────────────────────────────────
     _section("Imported by", len(result.imported_by))
     for f in result.imported_by:
         console.print(f"  [yellow]{f}[/yellow]")
 
-    # ── related tests ────────────────────────────────────────────────────────
+    _section("Called by (call graph)", len(result.callers))
+    for f in result.callers:
+        console.print(f"  [yellow]{f}[/yellow]")
+
     _section("Related tests", len(result.related_tests))
     for f in result.related_tests:
         console.print(f"  [magenta]{f}[/magenta]")
 
-    # ── likely affected ──────────────────────────────────────────────────────
     _section("Likely affected files", len(result.likely_affected))
     for f in result.likely_affected:
         console.print(f"  • {f}")
@@ -211,7 +233,6 @@ def impact(
     if not result.likely_affected:
         console.print("  [dim]No other files appear to depend on this file.[/dim]")
 
-    # ── write artifact ───────────────────────────────────────────────────────
     out = bd / "last_impact.json"
     out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
     console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
@@ -221,16 +242,26 @@ def impact(
 def context(
     task: str = typer.Argument(..., help="Natural-language task description"),
     root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+    since: Optional[str] = typer.Option(None, "--since", help="Boost files changed since this git ref (e.g. HEAD~3, HEAD)"),
 ) -> None:
-    """Suggest files, symbols, routes and tests relevant to a task."""
+    """Suggest files, symbols, routes and tests relevant to a task.
+
+    Use --since HEAD~3 to boost recently changed files higher in results.
+    """
     bd = brain_dir(root)
 
     if not (bd / "symbols.json").exists():
         console.print("[red]No index found. Run `repo-brain index` first.[/red]")
         raise typer.Exit(1)
 
+    diff_files: set[str] = set()
+    if since:
+        diff_files = get_diff_files(root, since)
+        if diff_files:
+            console.print(f"[dim]Git diff ({since}): {len(diff_files)} changed file(s) will be boosted[/dim]")
+
     symbols, routes, imports, tests = load_context_artifacts(bd)
-    result = build_context(task, symbols, routes, imports, tests)
+    result = build_context(task, symbols, routes, imports, tests, diff_files=diff_files)
 
     console.print()
     console.print(Panel(
@@ -243,13 +274,12 @@ def context(
         console.print("[yellow]No meaningful keywords found. Try a more specific task description.[/yellow]")
         raise typer.Exit(0)
 
-    # ── suggested files ──────────────────────────────────────────────────────
     _section("Suggested files to read", len(result.suggested_files))
     for sf in result.suggested_files:
+        diff_tag = " [bold cyan][diff][/bold cyan]" if since and sf.path in diff_files else ""
         bar = "█" * sf.score
-        console.print(f"  [yellow]{sf.path}[/yellow]  [dim]{bar} ({sf.score})[/dim]")
+        console.print(f"  [yellow]{sf.path}[/yellow]  [dim]{bar} ({sf.score})[/dim]{diff_tag}")
 
-    # ── suggested symbols ────────────────────────────────────────────────────
     _section("Suggested symbols", len(result.suggested_symbols))
     for ss in result.suggested_symbols:
         s = ss.symbol
@@ -261,7 +291,6 @@ def context(
             f"  [dim]score {ss.score}[/dim]"
         )
 
-    # ── suggested routes ─────────────────────────────────────────────────────
     _section("Suggested routes", len(result.suggested_routes))
     for r in result.suggested_routes:
         console.print(
@@ -269,7 +298,6 @@ def context(
             f"  [dim]→ {r.function_name}  ({r.file_path})[/dim]"
         )
 
-    # ── suggested tests ──────────────────────────────────────────────────────
     _section("Suggested tests", len(result.suggested_tests))
     for t in result.suggested_tests:
         console.print(f"  [magenta]{t}[/magenta]")
@@ -282,10 +310,94 @@ def context(
     ]):
         console.print("\n[dim]No matches found. Try different keywords or run `repo-brain index` first.[/dim]")
 
-    # ── write artifact ───────────────────────────────────────────────────────
     out = bd / "last_context.json"
     out.write_text(json.dumps(result.model_dump(), indent=2), encoding="utf-8")
     console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+@app.command()
+def gaps(
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+    file: Optional[Path] = typer.Option(None, "--file", help="Filter to symbols in this file"),
+) -> None:
+    """Show symbols (classes, functions) with no apparent test coverage."""
+    bd = brain_dir(root)
+
+    if not (bd / "symbols.json").exists():
+        console.print("[red]No index found. Run `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    file_filter = str(file) if file else None
+    symbols, tests = load_gaps_artifacts(bd)
+    gap_list = find_gaps(symbols, tests, file_filter=file_filter)
+
+    console.print()
+    console.print(Panel(
+        f"[bold]{len(gap_list)} untested symbol(s)[/bold]"
+        + (f"\n[dim]filtered to: {file_filter}[/dim]" if file_filter else ""),
+        title="[bold cyan]Test Gaps[/bold cyan]",
+        expand=False,
+    ))
+
+    if not gap_list:
+        console.print("[green]No gaps found — all public symbols appear to have test coverage.[/green]")
+        raise typer.Exit(0)
+
+    current_file = ""
+    for g in gap_list:
+        if g.file_path != current_file:
+            current_file = g.file_path
+            console.print(f"\n[bold yellow]{current_file}[/bold yellow]")
+        kind = f"[dim]{g.symbol_type}[/dim]"
+        console.print(f"  {kind}  [bold]{g.symbol_name}[/bold]  [dim]line {g.lineno}[/dim]")
+
+    out = bd / "gaps.json"
+    out.write_text(json.dumps([g.model_dump() for g in gap_list], indent=2), encoding="utf-8")
+    console.print(f"\n[dim]Saved to {out.resolve()}[/dim]")
+
+
+@app.command(name="export")
+def export_cmd(
+    task: str = typer.Argument(..., help="Natural-language task description"),
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+    out: Optional[Path] = typer.Option(None, "--out", help="Output file (default: .repo-brain/last_export.md)"),
+) -> None:
+    """Export relevant code snippets for a task as a single Markdown file.
+
+    The output is paste-ready for any AI context window.
+    """
+    bd = brain_dir(root)
+
+    if not (bd / "symbols.json").exists():
+        console.print("[red]No index found. Run `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    with console.status("[bold green]Exporting context snippets…[/bold green]"):
+        markdown = export_context(task, bd, root)
+
+    output_path = out or (bd / "last_export.md")
+    output_path.write_text(markdown, encoding="utf-8")
+
+    token_estimate = len(markdown) // 4
+    console.print(f"[green]Exported[/green] ~{token_estimate:,} tokens → [bold]{output_path.resolve()}[/bold]")
+    console.print("[dim]Paste the file contents into your AI context window.[/dim]")
+
+
+@app.command()
+def watch(
+    root: Path = typer.Option(Path("."), "--root", help="Repository root"),
+) -> None:
+    """Watch the repository for file changes and auto re-index.
+
+    Keeps .repo-brain/ artifacts fresh while you code. Press Ctrl+C to stop.
+    """
+    bd = brain_dir(root)
+    if not bd.exists():
+        console.print("[red]No .repo-brain/ found. Run `repo-brain init` and `repo-brain index` first.[/red]")
+        raise typer.Exit(1)
+
+    from repo_brain.watch import watch as _watch
+    _watch(root)
 
 
 @app.command(name="setup-project")
@@ -322,17 +434,19 @@ def setup_project(
         save_config(config, root)
         console.print("[green]✓ Initialised .repo-brain/[/green]")
 
-    # ── 2. index ─────────────────────────────────────────────────────────────
+    # ── 2. index (incremental) ────────────────────────────────────────────────
     config = load_config(root)
     with console.status("[bold green]Indexing repository…[/bold green]"):
-        result = scan(root, config)
+        result, new_hashes = scan_incremental(root, config, bd)
 
     modules = top_level_modules(result.files, root)
     timestamp = datetime.now(timezone.utc).isoformat()
+    lang_counts = file_counts_by_language(result.files)
     repo_map = RepoMap(
         project_name=config.project_name,
         scan_timestamp=timestamp,
-        python_file_count=len(result.files),
+        python_file_count=lang_counts.get("python", 0),
+        file_counts=lang_counts,
         top_level_modules=modules,
         artifact_paths={
             "repo_map": str(bd / "repo_map.json"),
@@ -340,14 +454,18 @@ def setup_project(
             "imports": str(bd / "imports.json"),
             "routes": str(bd / "routes.json"),
             "tests": str(bd / "tests.json"),
+            "call_graph": str(bd / "call_graph.json"),
+            "route_links": str(bd / "route_links.json"),
             "markdown": str(bd / "REPO_MAP.md"),
         },
     )
     write_artifacts(bd, result, repo_map)
+    write_hashes(bd, new_hashes)
     write_markdown(bd, result, repo_map)
     console.print(
-        f"[green]✓ Indexed {len(result.files)} Python files[/green]"
-        f"  [dim]({len(result.symbols)} symbols · {len(result.routes)} routes · {len(result.tests)} test files)[/dim]"
+        f"[green]✓ Indexed {len(result.files)} file(s)[/green]"
+        f"  [dim]({len(result.symbols)} symbols · {len(result.routes)} routes · "
+        f"{len(result.tests)} test files · {len(result.calls)} call edges)[/dim]"
     )
 
     # ── 3. install skills ────────────────────────────────────────────────────
@@ -372,10 +490,10 @@ def setup_project(
     console.print()
     console.print("[bold green]Setup complete.[/bold green]")
     console.print("  Open Claude Code and type [bold]/setup[/bold] to start your first session.")
+    console.print("  Tip: run [bold]repo-brain watch[/bold] in a background terminal to keep the index live.")
 
 
 def _install_skills(commands_dir: Path) -> tuple[list[str], list[str]]:
-    """Copy bundled skill files to .claude/commands/. Returns (installed, skipped)."""
     commands_dir.mkdir(parents=True, exist_ok=True)
     skills_pkg = pkg_resources.files("repo_brain") / "skills"
 
@@ -398,7 +516,6 @@ def _install_skills(commands_dir: Path) -> tuple[list[str], list[str]]:
 
 
 def _register_mcp(root: Path) -> None:
-    """Register repo-brain as an MCP server with the Claude Code CLI."""
     claude = shutil.which("claude")
     if not claude:
         console.print(
@@ -416,7 +533,6 @@ def _register_mcp(root: Path) -> None:
     if result.returncode == 0:
         console.print("[green]✓ MCP server registered with Claude Code[/green]")
     else:
-        # 'already exists' is not a real failure
         stderr = result.stderr.strip()
         if "already" in stderr.lower() or "exists" in stderr.lower():
             console.print("[dim]✓ MCP server already registered[/dim]")

@@ -3,7 +3,7 @@ from __future__ import annotations
 import ast
 from pathlib import Path
 
-from repo_brain.models import ImportInfo, SymbolInfo
+from repo_brain.models import CallInfo, ImportInfo, SymbolInfo
 
 SUPPORTED_METHODS = {"get", "post", "put", "patch", "delete", "options", "head"}
 
@@ -81,6 +81,69 @@ def parse_symbols(file_path: str, source: str) -> list[SymbolInfo]:
                 ))
 
     return results
+
+
+def parse_calls(file_path: str, source: str) -> list[CallInfo]:
+    """Extract function call relationships using AST.
+
+    Returns one CallInfo per call site: which enclosing function made the call
+    and what callee name was invoked.
+    """
+    try:
+        tree = ast.parse(source, filename=file_path)
+    except SyntaxError:
+        return []
+
+    # Build a map: ast node id → enclosing function name
+    _parent: dict[int, ast.AST] = {}
+    for node in ast.walk(tree):
+        for child in ast.iter_child_nodes(node):
+            _parent[id(child)] = node
+
+    results: list[CallInfo] = []
+
+    for node in ast.walk(tree):
+        if not isinstance(node, ast.Call):
+            continue
+
+        # Extract callee name (best-effort)
+        callee = _callee_name(node.func)
+        if not callee:
+            continue
+
+        # Find enclosing function
+        enclosing = _enclosing_function(_parent, node)
+        results.append(CallInfo(
+            caller_file=file_path,
+            caller_name=enclosing,
+            callee_name=callee,
+            lineno=node.lineno,
+        ))
+
+    return results
+
+
+# ---------------------------------------------------------------------------
+# helpers
+# ---------------------------------------------------------------------------
+
+def _callee_name(func_node: ast.expr) -> str:
+    """Return a string name for the call target, or empty string if not representable."""
+    if isinstance(func_node, ast.Name):
+        return func_node.id
+    if isinstance(func_node, ast.Attribute):
+        return func_node.attr
+    return ""
+
+
+def _enclosing_function(parent_map: dict[int, ast.AST], node: ast.AST) -> str:
+    """Walk up the parent map to find the nearest enclosing function name."""
+    current = parent_map.get(id(node))
+    while current is not None:
+        if isinstance(current, (ast.FunctionDef, ast.AsyncFunctionDef)):
+            return current.name
+        current = parent_map.get(id(current))
+    return "<module>"
 
 
 def _is_top_level_function(tree: ast.Module, target: ast.FunctionDef | ast.AsyncFunctionDef) -> bool:

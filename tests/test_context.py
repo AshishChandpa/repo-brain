@@ -133,13 +133,13 @@ def test_score_files_matches_relevant():
         "app/services/audit_log.py",
         "app/models/user.py",
     ]
-    scored = _score_files(files, ["document", "upload"])
+    scored = _score_files(files, ["document", "upload"], set())
     paths = [s.path for s in scored]
     assert "app/services/document_service.py" in paths
 
 def test_score_files_excludes_unrelated():
     files = ["app/models/user.py", "app/utils/helpers.py"]
-    scored = _score_files(files, ["document", "upload"])
+    scored = _score_files(files, ["document", "upload"], set())
     assert scored == []
 
 def test_score_files_sorted_by_score():
@@ -147,12 +147,12 @@ def test_score_files_sorted_by_score():
         "app/services/audit_log.py",
         "app/audit/audit_document_log.py",
     ]
-    scored = _score_files(files, ["audit", "document"])
+    scored = _score_files(files, ["audit", "document"], set())
     assert scored[0].score >= scored[-1].score
 
 def test_score_files_score_positive():
     files = ["app/services/document_service.py"]
-    scored = _score_files(files, ["document"])
+    scored = _score_files(files, ["document"], set())
     assert scored[0].score > 0
 
 

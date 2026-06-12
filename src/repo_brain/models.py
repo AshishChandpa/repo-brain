@@ -46,6 +46,28 @@ class TestInfo(BaseModel):
     test_classes: list[str]
 
 
+class CallInfo(BaseModel):
+    caller_file: str
+    caller_name: str    # enclosing function/method name ("<module>" for top-level)
+    callee_name: str    # function/symbol being called
+    lineno: int
+
+
+class SymbolGap(BaseModel):
+    file_path: str
+    symbol_name: str
+    symbol_type: str
+    lineno: int
+
+
+class RouteLink(BaseModel):
+    frontend_file: str
+    frontend_lineno: int
+    pattern: str            # e.g. "/api/users"
+    method: str             # "get" / "post" / "unknown"
+    backend_route: RouteInfo | None = None
+
+
 class RepoMap(BaseModel):
     project_name: str | None
     scan_timestamp: str
@@ -61,6 +83,8 @@ class ScanResult(BaseModel):
     symbols: list[SymbolInfo]
     routes: list[RouteInfo]
     tests: list[TestInfo]
+    calls: list[CallInfo] = []
+    route_links: list[RouteLink] = []
 
 
 class ImpactResult(BaseModel):
@@ -70,6 +94,7 @@ class ImpactResult(BaseModel):
     routes: list[RouteInfo]
     imported_by: list[str]
     related_tests: list[str]
+    callers: list[str] = []
     likely_affected: list[str]
 
 

@@ -57,6 +57,13 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
+    "module": "typing",
+    "name": "Optional",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
     "module": "typer",
     "name": null,
     "alias": null,
@@ -80,13 +87,6 @@
     "file_path": "src/repo_brain/cli.py",
     "module": "rich.table",
     "name": "Table",
-    "alias": null,
-    "level": 0
-  },
-  {
-    "file_path": "src/repo_brain/cli.py",
-    "module": "rich.text",
-    "name": "Text",
     "alias": null,
     "level": 0
   },
@@ -128,7 +128,35 @@
   {
     "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.context",
+    "name": "get_diff_files",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.context",
     "name": "load_context_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.export",
+    "name": "export_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.gaps",
+    "name": "find_gaps",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.gaps",
+    "name": "load_gaps_artifacts",
     "alias": null,
     "level": 0
   },
@@ -177,6 +205,13 @@
   {
     "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.scanner",
+    "name": "scan_incremental",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.scanner",
     "name": "top_level_modules",
     "alias": null,
     "level": 0
@@ -190,6 +225,13 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
+    "module": "repo_brain.writers.json_writer",
+    "name": "write_hashes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/cli.py",
     "module": "repo_brain.writers.markdown_writer",
     "name": "write_markdown",
     "alias": null,
@@ -197,9 +239,9 @@
   },
   {
     "file_path": "src/repo_brain/cli.py",
-    "module": "json",
-    "name": null,
-    "alias": null,
+    "module": "repo_brain.watch",
+    "name": "watch",
+    "alias": "_watch",
     "level": 0
   },
   {
@@ -260,6 +302,20 @@
   },
   {
     "file_path": "src/repo_brain/context.py",
+    "module": "subprocess",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/context.py",
     "module": "repo_brain.models",
     "name": "ContextResult",
     "alias": null,
@@ -308,6 +364,83 @@
     "level": 0
   },
   {
+    "file_path": "src/repo_brain/export.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/export.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/export.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/export.py",
+    "module": "repo_brain.context",
+    "name": "build_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/export.py",
+    "module": "repo_brain.context",
+    "name": "load_context_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "repo_brain.models",
+    "name": "SymbolGap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/gaps.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
     "file_path": "src/repo_brain/impact.py",
     "module": "__future__",
     "name": "annotations",
@@ -325,6 +458,13 @@
     "file_path": "src/repo_brain/impact.py",
     "module": "pathlib",
     "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/impact.py",
+    "module": "repo_brain.models",
+    "name": "CallInfo",
     "alias": null,
     "level": 0
   },
@@ -423,6 +563,27 @@
     "file_path": "src/repo_brain/mcp_server.py",
     "module": "repo_brain.context",
     "name": "load_context_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.export",
+    "name": "export_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.gaps",
+    "name": "find_gaps",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/mcp_server.py",
+    "module": "repo_brain.gaps",
+    "name": "load_gaps_artifacts",
     "alias": null,
     "level": 0
   },
@@ -527,6 +688,13 @@
   {
     "file_path": "src/repo_brain/parsers/go.py",
     "module": "repo_brain.models",
+    "name": "CallInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/go.py",
+    "module": "repo_brain.models",
     "name": "ImportInfo",
     "alias": null,
     "level": 0
@@ -569,6 +737,13 @@
   {
     "file_path": "src/repo_brain/parsers/node.py",
     "module": "repo_brain.models",
+    "name": "CallInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
     "name": "ImportInfo",
     "alias": null,
     "level": 0
@@ -577,6 +752,13 @@
     "file_path": "src/repo_brain/parsers/node.py",
     "module": "repo_brain.models",
     "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/node.py",
+    "module": "repo_brain.models",
+    "name": "RouteLink",
     "alias": null,
     "level": 0
   },
@@ -640,6 +822,13 @@
     "file_path": "src/repo_brain/parsers/python_ast.py",
     "module": "pathlib",
     "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/parsers/python_ast.py",
+    "module": "repo_brain.models",
+    "name": "CallInfo",
     "alias": null,
     "level": 0
   },
@@ -661,6 +850,20 @@
     "file_path": "src/repo_brain/scanner.py",
     "module": "__future__",
     "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "hashlib",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "json",
+    "name": null,
     "alias": null,
     "level": 0
   },
@@ -688,7 +891,28 @@
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.models",
+    "name": "CallInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
     "name": "FileInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "RouteLink",
     "alias": null,
     "level": 0
   },
@@ -737,6 +961,13 @@
   {
     "file_path": "src/repo_brain/scanner.py",
     "module": "repo_brain.parsers.python_ast",
+    "name": "parse_calls",
+    "alias": "parse_py_calls",
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.parsers.python_ast",
     "name": "parse_imports",
     "alias": "parse_py_imports",
     "level": 0
@@ -746,6 +977,195 @@
     "module": "repo_brain.parsers.python_ast",
     "name": "parse_symbols",
     "alias": "parse_py_symbols",
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "CallInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "FileInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "ImportInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "RouteInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/scanner.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "__future__",
+    "name": "annotations",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "threading",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "time",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "datetime",
+    "name": "datetime",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "datetime",
+    "name": "timezone",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "rich.console",
+    "name": "Console",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.config",
+    "name": "brain_dir",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.config",
+    "name": "load_config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.models",
+    "name": "RepoMap",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.scanner",
+    "name": "file_counts_by_language",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.scanner",
+    "name": "scan_incremental",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.scanner",
+    "name": "top_level_modules",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.writers.json_writer",
+    "name": "write_artifacts",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.writers.json_writer",
+    "name": "write_hashes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "repo_brain.writers.markdown_writer",
+    "name": "write_markdown",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "watchdog.events",
+    "name": "FileSystemEventHandler",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "watchdog.observers",
+    "name": "Observer",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "watchdog.events",
+    "name": "FileSystemEventHandler",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "src/repo_brain/watch.py",
+    "module": "watchdog.observers",
+    "name": "Observer",
+    "alias": null,
     "level": 0
   },
   {
@@ -809,6 +1229,34 @@
     "module": "repo_brain.models",
     "name": "ScanResult",
     "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_call_graph.py",
+    "module": "repo_brain.parsers.python_ast",
+    "name": "parse_calls",
+    "alias": "py_parse_calls",
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_call_graph.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_calls",
+    "alias": "node_parse_calls",
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_call_graph.py",
+    "module": "repo_brain.parsers.node",
+    "name": "parse_fetch_calls",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_call_graph.py",
+    "module": "repo_brain.parsers.go",
+    "name": "parse_calls",
+    "alias": "go_parse_calls",
     "level": 0
   },
   {
@@ -896,9 +1344,72 @@
     "level": 0
   },
   {
+    "file_path": "tests/test_export.py",
+    "module": "tempfile",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_export.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_export.py",
+    "module": "repo_brain.export",
+    "name": "_extract_snippet",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_export.py",
+    "module": "repo_brain.export",
+    "name": "_lang",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_export.py",
+    "module": "repo_brain.export",
+    "name": "export_context",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_export.py",
+    "module": "json",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
     "file_path": "tests/test_fastapi_routes.py",
     "module": "repo_brain.parsers.fastapi",
     "name": "parse_routes",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_gaps.py",
+    "module": "repo_brain.gaps",
+    "name": "find_gaps",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_gaps.py",
+    "module": "repo_brain.models",
+    "name": "SymbolInfo",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_gaps.py",
+    "module": "repo_brain.models",
+    "name": "TestInfo",
     "alias": null,
     "level": 0
   },
@@ -1256,6 +1767,83 @@
     "file_path": "tests/test_scanner.py",
     "module": "repo_brain.scanner",
     "name": "top_level_modules",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "pathlib",
+    "name": "Path",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.watch",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.watch",
+    "name": "_RepoEventHandler",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.watch",
+    "name": "_RepoEventHandler",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.config",
+    "name": "Config",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "sys",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "importlib",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "watchdog",
+    "name": null,
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.watch",
+    "name": "_make_watchdog_handler",
+    "alias": null,
+    "level": 0
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "module": "repo_brain.config",
+    "name": "Config",
     "alias": null,
     "level": 0
   }

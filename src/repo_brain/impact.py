@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from repo_brain.models import ImpactResult, ImportInfo, RouteInfo, SymbolInfo, TestInfo
+from repo_brain.models import CallInfo, ImpactResult, ImportInfo, RouteInfo, SymbolInfo, TestInfo
 
 
 def load_impact_artifacts(brain_dir: Path) -> tuple[
@@ -11,6 +11,7 @@ def load_impact_artifacts(brain_dir: Path) -> tuple[
     list[RouteInfo],
     list[ImportInfo],
     list[TestInfo],
+    list[CallInfo],
 ]:
     def _read(name: str) -> list:
         p = brain_dir / name
@@ -20,7 +21,8 @@ def load_impact_artifacts(brain_dir: Path) -> tuple[
     routes = [RouteInfo(**r) for r in _read("routes.json")]
     imports = [ImportInfo(**i) for i in _read("imports.json")]
     tests = [TestInfo(**t) for t in _read("tests.json")]
-    return symbols, routes, imports, tests
+    calls = [CallInfo(**c) for c in _read("call_graph.json")]
+    return symbols, routes, imports, tests, calls
 
 
 def analyse(
@@ -29,6 +31,7 @@ def analyse(
     routes: list[RouteInfo],
     imports: list[ImportInfo],
     tests: list[TestInfo],
+    calls: list[CallInfo] | None = None,
 ) -> ImpactResult:
     target_path = Path(target)
     module_path = _to_module_path(target)
@@ -48,9 +51,19 @@ def analyse(
         *_name_heuristic_tests(target_path, test_file_paths),
     })
 
-    # likely affected = importers + related tests, deduped, excluding the target itself
+    # call-graph callers: files that call any symbol defined in this file
+    callers: list[str] = []
+    if calls:
+        symbol_names = {s.name for s in file_symbols}
+        caller_files: set[str] = set()
+        for call in calls:
+            if call.callee_name in symbol_names and not _paths_match(call.caller_file, target):
+                caller_files.add(call.caller_file)
+        callers = sorted(caller_files)
+
+    # likely affected = importers + callers + related tests, deduped, excluding the target itself
     likely_affected: list[str] = sorted({
-        f for f in (*imported_by, *related_tests)
+        f for f in (*imported_by, *callers, *related_tests)
         if not _paths_match(f, target)
     })
 
@@ -61,6 +74,7 @@ def analyse(
         routes=file_routes,
         imported_by=imported_by,
         related_tests=related_tests,
+        callers=callers,
         likely_affected=likely_affected,
     )
 

@@ -1,65 +1,122 @@
 {
-  "target_file": "src/repo_brain/config.py",
-  "module_path": "src.repo_brain.config",
+  "target_file": "src/repo_brain/context.py",
+  "module_path": "src.repo_brain.context",
   "symbols": [
     {
-      "file_path": "src/repo_brain/config.py",
-      "name": "Config",
-      "symbol_type": "class",
-      "lineno": 12,
-      "end_lineno": 25,
-      "parent": null
-    },
-    {
-      "file_path": "src/repo_brain/config.py",
-      "name": "brain_dir",
-      "symbol_type": "function",
-      "lineno": 28,
-      "end_lineno": 29,
-      "parent": null
-    },
-    {
-      "file_path": "src/repo_brain/config.py",
-      "name": "config_path",
+      "file_path": "src/repo_brain/context.py",
+      "name": "load_context_artifacts",
       "symbol_type": "function",
       "lineno": 32,
-      "end_lineno": 33,
-      "parent": null
-    },
-    {
-      "file_path": "src/repo_brain/config.py",
-      "name": "load_config",
-      "symbol_type": "function",
-      "lineno": 36,
-      "end_lineno": 40,
-      "parent": null
-    },
-    {
-      "file_path": "src/repo_brain/config.py",
-      "name": "save_config",
-      "symbol_type": "function",
-      "lineno": 43,
       "end_lineno": 46,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "get_diff_files",
+      "symbol_type": "function",
+      "lineno": 49,
+      "end_lineno": 63,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "build_context",
+      "symbol_type": "function",
+      "lineno": 66,
+      "end_lineno": 106,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_extract_keywords",
+      "symbol_type": "function",
+      "lineno": 113,
+      "end_lineno": 125,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_tokenize_path",
+      "symbol_type": "function",
+      "lineno": 132,
+      "end_lineno": 140,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_score_token_list",
+      "symbol_type": "function",
+      "lineno": 143,
+      "end_lineno": 145,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_score_files",
+      "symbol_type": "function",
+      "lineno": 148,
+      "end_lineno": 161,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_score_symbols",
+      "symbol_type": "function",
+      "lineno": 164,
+      "end_lineno": 174,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_match_routes",
+      "symbol_type": "function",
+      "lineno": 177,
+      "end_lineno": 187,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_match_tests",
+      "symbol_type": "function",
+      "lineno": 190,
+      "end_lineno": 200,
+      "parent": null
+    },
+    {
+      "file_path": "src/repo_brain/context.py",
+      "name": "_read",
+      "symbol_type": "function",
+      "lineno": 38,
+      "end_lineno": 40,
       "parent": null
     }
   ],
   "routes": [],
   "imported_by": [
     "src/repo_brain/cli.py",
+    "src/repo_brain/export.py",
     "src/repo_brain/mcp_server.py",
-    "src/repo_brain/scanner.py",
-    "tests/test_mcp_server.py",
-    "tests/test_scanner.py"
+    "tests/test_context.py"
   ],
   "related_tests": [
-    "tests/test_mcp_server.py",
-    "tests/test_scanner.py"
+    "tests/test_context.py"
+  ],
+  "callers": [
+    "src/repo_brain/cli.py",
+    "src/repo_brain/export.py",
+    "src/repo_brain/gaps.py",
+    "src/repo_brain/impact.py",
+    "src/repo_brain/mcp_server.py",
+    "src/repo_brain/scanner.py",
+    "tests/test_context.py"
   ],
   "likely_affected": [
     "src/repo_brain/cli.py",
+    "src/repo_brain/export.py",
+    "src/repo_brain/gaps.py",
+    "src/repo_brain/impact.py",
     "src/repo_brain/mcp_server.py",
     "src/repo_brain/scanner.py",
-    "tests/test_mcp_server.py",
-    "tests/test_scanner.py"
+    "tests/test_context.py"
   ]
 }

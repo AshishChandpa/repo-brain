@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import re
 
-from repo_brain.models import ImportInfo, RouteInfo, SymbolInfo, TestInfo
+from repo_brain.models import CallInfo, ImportInfo, RouteInfo, SymbolInfo, TestInfo
 
 # ---------------------------------------------------------------------------
 # constants
@@ -56,6 +56,9 @@ _TEST_FUNC_RE = re.compile(
     r"^func\s+(Test\w+|Benchmark\w+|Example\w+)\s*\(\w+\s+\*testing\.",
     re.MULTILINE,
 )
+
+# Function calls: identifier( — used for call graph
+_CALL_RE = re.compile(r"\b([a-zA-Z_][\w.]*)\s*\(")
 
 
 # ---------------------------------------------------------------------------
@@ -140,3 +143,47 @@ def parse_tests(file_path: str, source: str) -> TestInfo:
         test_functions=test_functions,
         test_classes=[],
     )
+
+
+def parse_calls(file_path: str, source: str) -> list[CallInfo]:
+    """Extract function call sites. Associates each call with its nearest enclosing func."""
+    _SKIP = {
+        "if", "for", "func", "type", "var", "const", "import", "package",
+        "return", "make", "new", "len", "cap", "append", "copy", "delete",
+        "panic", "recover", "close", "range",
+    }
+    results: list[CallInfo] = []
+    lines = source.splitlines()
+
+    # Build rough func→line ranges
+    func_ranges: list[tuple[int, str]] = []
+    for m in _FUNC_RE.finditer(source):
+        start = source[: m.start()].count("\n") + 1
+        func_ranges.append((start, m.group(1)))
+
+    def _enclosing(lineno: int) -> str:
+        best: tuple[int, str] = (0, "<package>")
+        for s, name in func_ranges:
+            if s <= lineno and s > best[0]:
+                best = (s, name)
+        return best[1]
+
+    for i, line in enumerate(lines, 1):
+        # Skip comment lines
+        stripped = line.strip()
+        if stripped.startswith("//") or stripped.startswith("/*"):
+            continue
+        for m in _CALL_RE.finditer(line):
+            callee = m.group(1)
+            # strip package prefix (e.g. "fmt.Println" → "Println")
+            callee = callee.split(".")[-1]
+            if callee in _SKIP or not callee:
+                continue
+            results.append(CallInfo(
+                caller_file=file_path,
+                caller_name=_enclosing(i),
+                callee_name=callee,
+                lineno=i,
+            ))
+
+    return results

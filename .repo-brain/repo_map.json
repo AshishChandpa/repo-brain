@@ -1,9 +1,9 @@
 {
   "project_name": null,
-  "scan_timestamp": "2026-06-11T13:11:49.242301+00:00",
-  "python_file_count": 27,
+  "scan_timestamp": "2026-06-12T05:34:07.243665+00:00",
+  "python_file_count": 34,
   "file_counts": {
-    "python": 27
+    "python": 34
   },
   "top_level_modules": [
     "src",
@@ -15,6 +15,8 @@
     "imports": ".repo-brain/imports.json",
     "routes": ".repo-brain/routes.json",
     "tests": ".repo-brain/tests.json",
+    "call_graph": ".repo-brain/call_graph.json",
+    "route_links": ".repo-brain/route_links.json",
     "markdown": ".repo-brain/REPO_MAP.md"
   }
 }

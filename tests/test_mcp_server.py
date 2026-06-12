@@ -95,8 +95,8 @@ def indexed_repo(tmp_path: Path) -> Path:
 # tool registry
 # ---------------------------------------------------------------------------
 
-def test_six_tools_defined():
-    assert len(_TOOLS) == 6
+def test_nine_tools_defined():
+    assert len(_TOOLS) == 9
 
 def test_tool_names():
     names = {t.name for t in _TOOLS}
@@ -107,6 +107,9 @@ def test_tool_names():
         "repo_brain_impact",
         "repo_brain_tests",
         "repo_brain_task_context",
+        "repo_brain_gaps",
+        "repo_brain_export_context",
+        "repo_brain_route_links",
     }
 
 def test_all_tools_have_description():

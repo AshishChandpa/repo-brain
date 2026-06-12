@@ -1,5 +1,25 @@
 [
   {
+    "file_path": "tests/test_call_graph.py",
+    "test_functions": [
+      "test_py_detects_call_in_function",
+      "test_py_caller_name_tracked",
+      "test_py_method_calls_tracked",
+      "test_py_file_path_set",
+      "test_py_lineno_positive",
+      "test_py_empty_source",
+      "test_py_syntax_error_returns_empty",
+      "test_node_detects_function_call",
+      "test_node_caller_file_set",
+      "test_fetch_call_detected",
+      "test_axios_post_detected",
+      "test_fetch_link_has_frontend_file",
+      "test_go_detects_call",
+      "test_go_caller_file_set"
+    ],
+    "test_classes": []
+  },
+  {
     "file_path": "tests/test_context.py",
     "test_functions": [
       "test_keywords_lowercased",
@@ -44,6 +64,21 @@
     "test_classes": []
   },
   {
+    "file_path": "tests/test_export.py",
+    "test_functions": [
+      "test_extract_snippet_basic",
+      "test_extract_snippet_single_line",
+      "test_extract_snippet_missing_file",
+      "test_extract_snippet_caps_at_max_lines",
+      "test_lang_python",
+      "test_lang_typescript",
+      "test_lang_go",
+      "test_lang_unknown",
+      "test_export_context_returns_markdown"
+    ],
+    "test_classes": []
+  },
+  {
     "file_path": "tests/test_fastapi_routes.py",
     "test_functions": [
       "test_app_get_route",
@@ -55,6 +90,20 @@
       "test_no_routes",
       "test_dynamic_path_skipped",
       "test_syntax_error_returns_empty"
+    ],
+    "test_classes": []
+  },
+  {
+    "file_path": "tests/test_gaps.py",
+    "test_functions": [
+      "test_no_gaps_when_all_covered",
+      "test_all_gaps_when_no_tests",
+      "test_method_not_in_gaps",
+      "test_gaps_sorted_by_file_then_line",
+      "test_filter_by_file",
+      "test_test_files_excluded_from_gaps",
+      "test_function_covered_by_name_match",
+      "test_class_covered_by_test_class_name"
     ],
     "test_classes": []
   },
@@ -115,7 +164,7 @@
   {
     "file_path": "tests/test_mcp_server.py",
     "test_functions": [
-      "test_six_tools_defined",
+      "test_nine_tools_defined",
       "test_tool_names",
       "test_all_tools_have_description",
       "test_all_tools_have_input_schema",
@@ -216,6 +265,16 @@
       "test_scan_detects_test_function",
       "test_scan_excludes_dirs",
       "test_top_level_modules"
+    ],
+    "test_classes": []
+  },
+  {
+    "file_path": "tests/test_watch.py",
+    "test_functions": [
+      "test_watch_module_importable",
+      "test_reindex_handler_initialises",
+      "test_trigger_ignores_non_source_files",
+      "test_make_watchdog_handler_returns_none_without_watchdog"
     ],
     "test_classes": []
   }
