@@ -555,7 +555,8 @@ def serve(
         console.print("[red]No .repo-brain/ found. Run `repo-brain init` and `repo-brain index` first.[/red]")
         raise typer.Exit(1)
 
-    console.print("[dim]repo-brain MCP server starting on stdio…[/dim]", err=True)
+    import sys
+    print("repo-brain MCP server starting on stdio…", file=sys.stderr)
     asyncio.run(run_server(root))
 
 
