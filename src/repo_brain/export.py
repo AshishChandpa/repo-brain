@@ -78,11 +78,9 @@ def export_context(
         sections.append("\n## Suggested files\n")
         sections.extend(file_snippets)
 
-    md = "\n".join(sections)
-    # Token estimate (rough: 1 token ≈ 4 chars)
-    token_estimate = len(md) // 4
+    body = "\n".join(sections)
+    token_estimate = len(body) // 4
     sections.insert(2, f"**Estimated tokens:** ~{token_estimate:,}\n")
-
     return "\n".join(sections)
 
 

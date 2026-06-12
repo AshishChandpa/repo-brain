@@ -18,44 +18,6 @@ console = Console()
 _DEBOUNCE_SECONDS = 1.5
 
 
-def watch(root: Path) -> None:
-    """Watch the repository for file changes and auto re-index."""
-    try:
-        from watchdog.events import FileSystemEventHandler
-        from watchdog.observers import Observer
-    except ImportError:
-        console.print(
-            "[red]watchdog is required for `repo-brain watch`.[/red]\n"
-            "Install it: [bold]pip install watchdog[/bold]"
-        )
-        return
-
-    config = load_config(root)
-    bd = brain_dir(root)
-
-    console.print(f"[bold green]Watching[/bold green] {root.resolve()}")
-    console.print("[dim]Press Ctrl+C to stop.[/dim]\n")
-
-    handler = _RepoEventHandler(root, config, bd)
-    observer = Observer()
-
-    for source_root in config.source_roots:
-        watch_dir = (root / source_root).resolve()
-        if watch_dir.exists():
-            observer.schedule(handler, str(watch_dir), recursive=True)
-
-    observer.start()
-    try:
-        while True:
-            time.sleep(1)
-    except KeyboardInterrupt:
-        pass
-    finally:
-        observer.stop()
-        observer.join()
-        console.print("\n[dim]Stopped watching.[/dim]")
-
-
 class _RepoEventHandler:
     def __init__(self, root: Path, config: Config, bd: Path) -> None:
         self._root = root
@@ -64,19 +26,6 @@ class _RepoEventHandler:
         self._timer: threading.Timer | None = None
         self._lock = threading.Lock()
         self._extensions = set(config.include_extensions)
-
-    # watchdog calls these
-    def dispatch(self, event) -> None:
-        pass
-
-    def on_modified(self, event) -> None:
-        self._trigger(getattr(event, "src_path", ""))
-
-    def on_created(self, event) -> None:
-        self._trigger(getattr(event, "src_path", ""))
-
-    def on_deleted(self, event) -> None:
-        self._trigger(getattr(event, "src_path", ""))
 
     def _trigger(self, path: str) -> None:
         if path and not any(path.endswith(ext) for ext in self._extensions):
@@ -121,8 +70,8 @@ class _RepoEventHandler:
             console.print(f"[red]Re-index failed:[/red] {exc}")
 
 
-# Make the handler a proper watchdog FileSystemEventHandler when watchdog is available
 def _make_watchdog_handler(root: Path, config: Config, bd: Path):
+    """Build a watchdog-compatible handler. Returns None if watchdog not installed."""
     try:
         from watchdog.events import FileSystemEventHandler
 
@@ -148,7 +97,7 @@ def _make_watchdog_handler(root: Path, config: Config, bd: Path):
         return None
 
 
-def watch(root: Path) -> None:  # noqa: F811  (redefines for real implementation)
+def watch(root: Path) -> None:
     """Watch the repository for file changes and auto re-index."""
     try:
         from watchdog.observers import Observer

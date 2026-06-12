@@ -218,8 +218,10 @@ def _load_cached_artifacts(brain_dir: Path) -> dict:
 def _reconstruct_from_cache(old_artifacts: dict, all_files: list[tuple[Path, str]]) -> ScanResult:
     files = []
     for abs_path, rel_path in all_files:
-        source = abs_path.read_text(encoding="utf-8", errors="replace")
-        lines = source.count("\n") + 1
+        # Use file size as a cheap line-count proxy — avoids reading file content
+        # when nothing has changed. Actual line counts from last parse are not cached
+        # but the rough estimate is sufficient for map/display purposes.
+        lines = max(1, abs_path.stat().st_size // 40)
         ext = Path(rel_path).suffix.lower()
         is_test = False
         if ext in _PY_EXTENSIONS:
